@@ -133,7 +133,7 @@ ViewBinding + MVP
 
 5.  widget
     
-    a.  ClearEditText: 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
+    a.  CustomEditText: 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
 
 6.  MVP
     
