@@ -59,19 +59,19 @@ dependencies {
 
 afterEvaluate {
     publishing {
-        repositories {
-            maven {
-                name = 'AndroidKit'
-                url = layout.buildDirectory.dir("repos")
-            }
-        }
+//        repositories {
+//            maven {
+//                name = 'AndroidKit'
+//                url = layout.buildDirectory.dir("repos")
+//            }
+//        }
         publications {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.zhumj.androidkit'
-                artifactId = 'AndroidKit'
-                version = '1.0.1'
+//                groupId = 'com.zhumj.androidkit'
+//                artifactId = 'AndroidKit'
+//                version = '1.0.1'
             }
         }
     }
