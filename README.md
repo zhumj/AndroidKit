@@ -234,12 +234,12 @@ ViewBinding + MVP
 
 #### 第三方库
 
-1.  权限请求：[Easypermissions-ktx：1.0.0]{https://github.com/vmadalin/easypermissions-ktx}
+1.  权限请求：[Easypermissions-ktx：1.0.0](https://github.com/vmadalin/easypermissions-ktx)
 
-2.  事件总线：[Eventbus:3.3.1]{https://github.com/greenrobot/EventBus}
+2.  事件总线：[Eventbus:3.3.1](https://github.com/greenrobot/EventBus)
 
-3.  比较好用的图片压缩：[CompressHelper:1.0.5]{https://github.com/nanchen2251/CompressHelper}
+3.  比较好用的图片压缩：[CompressHelper:1.0.5](https://github.com/nanchen2251/CompressHelper)
     
-4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50]{https://github.com/wanglu1209/PhotoViewer}
+4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
 
-5.  图片加载：[Coil:1.4.0]{https://coil-kt.github.io/coil/}
+5.  图片加载：[Coil:1.4.0](https://coil-kt.github.io/coil/)
