@@ -73,7 +73,7 @@ ViewBinding + MVP
     }
     ```
     
-2.  在 JAVA 项目上引用：[在 Kotlin 项目上引用] 的基础上
+2.  在 JAVA 项目上引用：**在 Kotlin 项目上引用** 的基础上
 
     在项目 build.gradle 里面
 
