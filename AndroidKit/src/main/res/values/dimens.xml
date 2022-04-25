@@ -1,0 +1,11 @@
+<resources>
+    <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+
+    <dimen name="sp_16">16sp</dimen>
+
+    <dimen name="px_16">16px</dimen>
+
+</resources>
