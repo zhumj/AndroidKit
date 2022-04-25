@@ -70,6 +70,60 @@ ViewBinding + MVP
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
         implementation project(':AndroidKit')
+        // implementation 'com.gitee.zhuminjun:AndroidKit:1.0.1'
+    }
+    ```
+    
+    **或者**
+
+    在 settings.gradle 里面
+
+    ```
+    pluginManagement {
+        repositories {
+            ...
+        }
+    }
+    dependencyResolutionManagement {
+        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        repositories {
+            ...
+            // CompressHelper 和 PhotoViewer 这两个第三方需要添加下面这行配置
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    rootProject.name = "AndroidKitProject"
+    include ':app'
+    ```
+
+    在项目 build.gradle 里面
+
+    ```
+    plugins {
+        ...
+    }
+    
+    // 添加这一行启用 config.gradle 公共配置
+    apply from: './AndroidKit/config.gradle'
+    
+    task clean(type: Delete) {
+        delete rootProject.buildDir
+    }
+    ```
+
+    在应用 build.gradle 里面
+
+    ```
+    android {
+        // AndroidKit 使用的 ViewBinding，应用也应使用 ViewBinding
+        buildFeatures {
+            viewBinding true
+        }
+    }
+    dependencies {
+        // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
+        // 依赖了 AndroidKit 相当于项目配置了那些基础包
+        implementation 'com.gitee.zhuminjun:AndroidKit:1.0.1'
     }
     ```
     
