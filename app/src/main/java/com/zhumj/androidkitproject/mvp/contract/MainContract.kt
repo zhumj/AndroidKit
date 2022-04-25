@@ -1,7 +1,7 @@
 package com.zhumj.androidkitproject.mvp.contract
 
 /**
- * 这里是定义 MVP 定义接口的地方
+ * 这里是 MVP 定义接口的地方
  */
 interface MainContract {
     interface Model {
