@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -54,4 +55,24 @@ dependencies {
     api 'com.github.wanglu1209:PhotoViewer:0.50'
     // 图片加载库：https://coil-kt.github.io/coil/
     api 'io.coil-kt:coil:1.4.0'
+}
+
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = 'AndroidKit'
+                url = layout.buildDirectory.dir("repos")
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.zhumj.androidkit'
+                artifactId = 'AndroidKit'
+                version = '1.0.1'
+            }
+        }
+    }
 }
