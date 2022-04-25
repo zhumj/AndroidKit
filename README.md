@@ -17,7 +17,9 @@ ViewBinding + MVP
 
 #### 使用
 
-1.  在 settings.gradle 里面
+1.  在 Kotlin 项目上引用
+
+    在 settings.gradle 里面
     
     ```
     pluginManagement {
@@ -29,6 +31,8 @@ ViewBinding + MVP
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
             ...
+            // CompressHelper 和 PhotoViewer 这两个第三方需要添加下面这行配置
+            maven { url 'https://jitpack.io' }
         }
     }
     rootProject.name = "AndroidKitProject"
@@ -38,7 +42,7 @@ ViewBinding + MVP
     include ':AndroidKit'
     ```
     
-2.  在项目 build.gradle 里面
+    在项目 build.gradle 里面
     
     ```
     plugins {
@@ -53,7 +57,7 @@ ViewBinding + MVP
     }
     ```
     
-3.  在应用 build.gradle 里面
+    在应用 build.gradle 里面
     
     ```
     android {
@@ -69,6 +73,28 @@ ViewBinding + MVP
     }
     ```
     
+2.  在 JAVA 项目上引用：[在 Kotlin 项目上引用] 的基础上
+
+    在项目 build.gradle 里面
+
+    ```
+    plugins {
+        ...
+        // 添加 Kotlin 插件
+        id 'org.jetbrains.kotlin.android' version '1.6.20' apply false
+    }
+    ```
+
+    在应用 build.gradle 里面
+
+    ```
+    plugins {
+        ...
+        // 添加 Kotlin 插件
+        id 'org.jetbrains.kotlin.android'
+    }
+    ```
+
 #### 功能
 
 1.  base
@@ -213,7 +239,7 @@ ViewBinding + MVP
 2.  事件总线：[Eventbus:3.3.1]{https://github.com/greenrobot/EventBus}
 
 3.  比较好用的图片压缩：[CompressHelper:1.0.5]{https://github.com/nanchen2251/CompressHelper}
-
+    
 4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50]{https://github.com/wanglu1209/PhotoViewer}
 
 5.  图片加载：[Coil:1.4.0]{https://coil-kt.github.io/coil/}
