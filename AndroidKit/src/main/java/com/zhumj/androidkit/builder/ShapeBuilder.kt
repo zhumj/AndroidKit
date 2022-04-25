@@ -16,26 +16,26 @@ import androidx.core.view.ViewCompat
  * shape的样式
  */
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
-@IntDef(ShapeType.TYPE_RECTANGLE, ShapeType.TYPE_OVAL, ShapeType.TYPE_LINE, ShapeType.TYPE_RING)
+@IntDef(ShapeType.SHAPE_TYPE_RECTANGLE, ShapeType.SHAPE_TYPE_OVAL, ShapeType.SHAPE_TYPE_LINE, ShapeType.SHAPE_TYPE_RING)
 @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
 annotation class ShapeType {
     companion object {
-        const val TYPE_RECTANGLE = 0
-        const val TYPE_OVAL = 1
-        const val TYPE_LINE = 2
-        const val TYPE_RING = 3
+        const val SHAPE_TYPE_RECTANGLE = 0
+        const val SHAPE_TYPE_OVAL = 1
+        const val SHAPE_TYPE_LINE = 2
+        const val SHAPE_TYPE_RING = 3
     }
 }
 
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
-@IntDef(GradientType.TYPE_LINEAR, GradientType.TYPE_RADIAL, GradientType.TYPE_SWEEP)
+@IntDef(GradientType.GRADIENT_TYPE_LINEAR, GradientType.GRADIENT_TYPE_RADIAL, GradientType.GRADIENT_TYPE_SWEEP)
 @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
 annotation class GradientType {
     companion object {
-        const val TYPE_LINEAR = 4
-        const val TYPE_RADIAL = 5
-        const val TYPE_SWEEP = 6
+        const val GRADIENT_TYPE_LINEAR = 0
+        const val GRADIENT_TYPE_RADIAL = 1
+        const val GRADIENT_TYPE_SWEEP = 2
     }
 }
 
@@ -45,7 +45,7 @@ class ShapeBuilder {
      * android:shape=["rectangle" | "oval" | "line" | "ring"]
      */
     @ShapeType
-    private var shapeType = ShapeType.TYPE_RECTANGLE
+    private var shapeType = ShapeType.SHAPE_TYPE_RECTANGLE
 
     /**
      * <solid android:color="color"></solid>
@@ -83,7 +83,7 @@ class ShapeBuilder {
     @ColorInt
     private var gradientEndColor = -1
     @GradientType
-    private var gradientType: Int = GradientType.TYPE_LINEAR
+    private var gradientType: Int = GradientType.GRADIENT_TYPE_LINEAR
 
     private var gradientUseLevel: Boolean = false
 
@@ -244,17 +244,17 @@ class ShapeBuilder {
         return this
     }
 
-    private fun setShapeType(gradientDrawable: GradientDrawable) {
+    private fun _setShapeType(gradientDrawable: GradientDrawable) {
         when (shapeType) {
-            ShapeType.TYPE_RECTANGLE -> gradientDrawable.shape = GradientDrawable.RECTANGLE
-            ShapeType.TYPE_OVAL -> gradientDrawable.shape = GradientDrawable.OVAL
-            ShapeType.TYPE_LINE -> gradientDrawable.shape = GradientDrawable.LINE
-            ShapeType.TYPE_RING -> gradientDrawable.shape = GradientDrawable.RING
+            ShapeType.SHAPE_TYPE_RECTANGLE -> gradientDrawable.shape = GradientDrawable.RECTANGLE
+            ShapeType.SHAPE_TYPE_OVAL -> gradientDrawable.shape = GradientDrawable.OVAL
+            ShapeType.SHAPE_TYPE_LINE -> gradientDrawable.shape = GradientDrawable.LINE
+            ShapeType.SHAPE_TYPE_RING -> gradientDrawable.shape = GradientDrawable.RING
         }
     }
 
 
-    private fun setSize(gradientDrawable: GradientDrawable) {
+    private fun _setSize(gradientDrawable: GradientDrawable) {
         if (sizeWidth > 0 || sizeHeight > 0) {
             gradientDrawable.setSize(sizeWidth, sizeHeight)
         }
@@ -263,7 +263,7 @@ class ShapeBuilder {
     /**
      * 设置边框  宽度  颜色  虚线  间隙
      */
-    private fun setBorder(gradientDrawable: GradientDrawable) {
+    private fun _setBorder(gradientDrawable: GradientDrawable) {
         if (strokeWidth >= 0) {
             gradientDrawable.setStroke(strokeWidth, strokeColor, strokeDashWidth, strokeDashGap)
         }
@@ -272,8 +272,8 @@ class ShapeBuilder {
     /**
      * 只有类型是矩形的时候设置圆角半径才有效
      */
-    private fun setRadius(gradientDrawable: GradientDrawable) {
-        if (shapeType == ShapeType.TYPE_RECTANGLE) {
+    private fun _setRadius(gradientDrawable: GradientDrawable) {
+        if (shapeType == ShapeType.SHAPE_TYPE_RECTANGLE) {
             if (cornersRadius != 0f) {
                 gradientDrawable.cornerRadius = cornersRadius
             } else {
@@ -286,7 +286,7 @@ class ShapeBuilder {
     }
 
 
-    private fun setSolidColor(gradientDrawable: GradientDrawable) {
+    private fun _setSolidColor(gradientDrawable: GradientDrawable) {
         if (gradientStartColor == -1 && gradientEndColor == -1) {
             gradientDrawable.setColor(solidColor)
         }
@@ -298,7 +298,7 @@ class ShapeBuilder {
      *
      * @param state 按钮状态
      */
-    private fun setSelectorColor(gradientDrawable: GradientDrawable, state: Int) {
+    private fun _setSelectorColor(gradientDrawable: GradientDrawable, state: Int) {
         if (useSelector && state != 0) {
             when (state) {
                 android.R.attr.state_pressed -> gradientDrawable.setColor(selectorPressedColor)
@@ -313,7 +313,7 @@ class ShapeBuilder {
      * 设置背景颜色
      * 如果设定的有Orientation 就默认为是渐变色的Button，否则就是纯色的Button
      */
-    private fun setGradient(gradientDrawable: GradientDrawable) {
+    private fun _setGradient(gradientDrawable: GradientDrawable) {
         if (gradientStartColor != -1 || gradientEndColor != -1) {
             if (gradientCenterColor == -1) {
                 gradientDrawable.colors = intArrayOf(gradientStartColor, gradientEndColor)
@@ -321,17 +321,17 @@ class ShapeBuilder {
                 gradientDrawable.colors = intArrayOf(gradientStartColor, gradientCenterColor, gradientEndColor)
             }
             when (gradientType) {
-                GradientType.TYPE_LINEAR -> {
+                GradientType.GRADIENT_TYPE_LINEAR -> {
                     gradientDrawable.gradientType = GradientDrawable.LINEAR_GRADIENT
                     if (gradientAngle != -1) {
                         gradientDrawable.orientation = getGradientOrientationByAngle(gradientAngle)
                     }
                 }
-                GradientType.TYPE_RADIAL -> {
+                GradientType.GRADIENT_TYPE_RADIAL -> {
                     gradientDrawable.gradientType = GradientDrawable.RADIAL_GRADIENT
                     gradientDrawable.gradientRadius = gradientGradientRadius.toFloat()
                 }
-                GradientType.TYPE_SWEEP -> gradientDrawable.gradientType = GradientDrawable.SWEEP_GRADIENT
+                GradientType.GRADIENT_TYPE_SWEEP -> gradientDrawable.gradientType = GradientDrawable.SWEEP_GRADIENT
             }
             if (gradientCenterX != 0 || gradientCenterY != 0) {
                 gradientDrawable.setGradientCenter(gradientCenterX.toFloat(), gradientCenterY.toFloat())
@@ -371,25 +371,25 @@ class ShapeBuilder {
     private val selectorDrawable: StateListDrawable
         get() {
             val stateListDrawable = StateListDrawable()
-            stateListDrawable.addState(intArrayOf(android.R.attr.state_pressed, android.R.attr.state_enabled), getDrawable(android.R.attr.state_pressed))
-            stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), getDrawable(-android.R.attr.state_enabled))
-            stateListDrawable.addState(intArrayOf(), getDrawable(android.R.attr.state_enabled))
+            stateListDrawable.addState(intArrayOf(android.R.attr.state_pressed, android.R.attr.state_enabled), _getDrawable(android.R.attr.state_pressed))
+            stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), _getDrawable(-android.R.attr.state_enabled))
+            stateListDrawable.addState(intArrayOf(), _getDrawable(android.R.attr.state_enabled))
             return stateListDrawable
         }
 
-    private fun getDrawable(state: Int): GradientDrawable {
+    private fun _getDrawable(state: Int): GradientDrawable {
         val gradientDrawable = GradientDrawable()
-        setShapeType(gradientDrawable)
-        setGradient(gradientDrawable)
-        setSolidColor(gradientDrawable)
-        setBorder(gradientDrawable)
-        setRadius(gradientDrawable)
-        setSize(gradientDrawable)
-        setSelectorColor(gradientDrawable, state)
+        _setShapeType(gradientDrawable)
+        _setGradient(gradientDrawable)
+        _setSolidColor(gradientDrawable)
+        _setBorder(gradientDrawable)
+        _setRadius(gradientDrawable)
+        _setSize(gradientDrawable)
+        _setSelectorColor(gradientDrawable, state)
         return gradientDrawable
     }
 
     fun into(view: View) {
-        ViewCompat.setBackground(view, if (useSelector) selectorDrawable else getDrawable(0))
+        ViewCompat.setBackground(view, if (useSelector) selectorDrawable else _getDrawable(0))
     }
 }

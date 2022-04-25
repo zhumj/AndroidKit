@@ -91,7 +91,7 @@ ViewBinding + MVP
 
     b.  AppUtil：App 相关工具类，可获取APP版本、名称等，可获取APK安装路径、可检查APK是否安装  
     
-    c.  DateTimeUtil：App 相关工具类，可获取APP版本、名称等，可获取APK安装路径、可检查APK是否安装  
+    c.  DateTimeUtil：日期/时间 工具类  
     
     d.  DeviceUtil：设备相关工具类
 
@@ -130,7 +130,7 @@ ViewBinding + MVP
             presenter?.queryDates()
         }
     
-        override fun queryDatesSuccess(dates: List<String>) {
+        override fun queryDatesSuccess(dates: List<Int>) {
             ToastBuilder(this)
                 .setMessage("数据获取成功")
                 .setToastType(ToastType.SUCCESS)
@@ -152,13 +152,16 @@ ViewBinding + MVP
     b.  MainPresenter
 
     ```
+    /**
+     * 这里是 MVP 中对逻辑进行处理的地方，通过 View 回调告诉 Activity 如何更新 UI
+     */
     class MainPresenter(view: MainContract.View): BasePresenter<MainContract.View>(view), MainContract.Presenter {
 
         private val model = MainModel()
-        var dates: List<String> = ArrayList()
+        var dates: List<Int> = ArrayList()
     
         override fun queryDates() {
-            dates = model.queryDatesDates()
+            dates = model.queryDates()
             // view?.queryDatesSuccess(dates)
             // view?.queryDatesFailure(-1, "数据获取失败")
         }
@@ -169,13 +172,16 @@ ViewBinding + MVP
     c.  MainContract
 
     ```
+    /**
+     * 这里是定义 MVP 定义接口的地方
+     */
     interface MainContract {
         interface Model {
-            fun queryDatesDates(): List<String>
+            fun queryDates(): List<Int>
         }
     
         interface View {
-            fun queryDatesSuccess(dates: List<String>)
+            fun queryDatesSuccess(dates: List<Int>)
             fun queryDatesFailure(errCode: Int, errMsg: String)
         }
     
@@ -188,10 +194,13 @@ ViewBinding + MVP
     d.  MainModel
 
     ```
+    /**
+     * 这里在 MVP 中是真正执行数据请求的地方
+     */
     class MainModel: MainContract.Model {
 
-        override fun queryDatesDates(): List<String> {
-            return ArrayList()
+        override fun queryDates(): List<Int> {
+            return arrayListOf(0, 1, 2, 3, 4)
         }
     
     }

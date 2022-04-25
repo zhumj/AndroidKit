@@ -175,7 +175,7 @@ class ToastBuilder(private val context: Context) {
         }
 
         ShapeBuilder()
-            .setShapeType(ShapeType.TYPE_RECTANGLE)
+            .setShapeType(ShapeType.SHAPE_TYPE_RECTANGLE)
             .setShapeCornersRadius(radius)
             .setShapeSolidColor(bgColor!!)
             .into(contentView)

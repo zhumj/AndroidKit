@@ -1,12 +1,15 @@
 package com.zhumj.androidkitproject.mvp.contract
 
+/**
+ * 这里是定义 MVP 定义接口的地方
+ */
 interface MainContract {
     interface Model {
-        fun queryDatesDates(): List<String>
+        fun queryDates(): List<Int>
     }
 
     interface View {
-        fun queryDatesSuccess(dates: List<String>)
+        fun queryDatesSuccess(dates: List<Int>)
         fun queryDatesFailure(errCode: Int, errMsg: String)
     }
 

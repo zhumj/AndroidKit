@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         presenter?.queryDates()
     }
 
-    override fun queryDatesSuccess(dates: List<String>) {
+    override fun queryDatesSuccess(dates: List<Int>) {
         ToastBuilder(this)
             .setMessage("数据获取成功")
             .setToastType(ToastType.SUCCESS)
