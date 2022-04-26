@@ -15,7 +15,7 @@ import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
     private val TAG = "MainActivity"
-    
+
     override fun getViewBinding(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
     }

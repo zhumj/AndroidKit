@@ -1,18 +1,15 @@
 package com.zhumj.androidkit.utils
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Rect
 import android.util.DisplayMetrics
 import android.view.WindowManager
 
 /**
  * @author Created by zhumj
  * @date 2022/4/23 15:48
- * @description : 文件描述
+ * @description : 屏幕相关
  */
 object ScreenUtil {
     /**
@@ -21,10 +18,11 @@ object ScreenUtil {
      * @return
      */
     fun getScreenWidth(context: Context): Int {
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val outMetrics = DisplayMetrics()
-        wm.defaultDisplay.getMetrics(outMetrics)
-        return outMetrics.widthPixels
+//        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+//        val outMetrics = DisplayMetrics()
+//        wm.defaultDisplay.getMetrics(outMetrics)
+//        return outMetrics.widthPixels
+        return context.resources.displayMetrics.widthPixels
     }
 
     /**
@@ -33,10 +31,11 @@ object ScreenUtil {
      * @return
      */
     fun getScreenHeight(context: Context): Int {
-        val wm = context.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val outMetrics = DisplayMetrics()
-        wm.defaultDisplay.getMetrics(outMetrics)
-        return outMetrics.heightPixels
+//        val wm = context.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+//        val outMetrics = DisplayMetrics()
+//        wm.defaultDisplay.getMetrics(outMetrics)
+//        return outMetrics.heightPixels
+        return context.resources.displayMetrics.heightPixels
     }
 
     /**

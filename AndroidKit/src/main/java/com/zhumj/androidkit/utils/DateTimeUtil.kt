@@ -98,14 +98,14 @@ object DateTimeUtil {
      * @return 如：GMT+08:00 中国标准时间
      */
     fun getTimeZoneName(zone: TimeZone): String {
-        return getShortName(zone) + " " + getLongName(zone)
+        return getTimeZoneShortName(zone) + " " + getTimeZoneLongName(zone)
     }
 
     /**
      * 获取时区短名称
      * @return 如：GMT+08:00
      */
-    fun getShortName(zone: TimeZone): String {
+    fun getTimeZoneShortName(zone: TimeZone): String {
         return zone.getDisplayName(true, TimeZone.SHORT)
     }
 
@@ -113,7 +113,7 @@ object DateTimeUtil {
      * 获取时区长名称
      * @return 如：中国标准时间
      */
-    fun getLongName(zone: TimeZone): String {
+    fun getTimeZoneLongName(zone: TimeZone): String {
         return zone.getDisplayName(false, TimeZone.LONG)
     }
 

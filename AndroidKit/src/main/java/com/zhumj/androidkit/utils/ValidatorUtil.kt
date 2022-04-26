@@ -28,27 +28,12 @@ object ValidatorUtil {
      * 正则表达式:验证邮箱
      */
     private val REGEX_EMAIL: String = "^([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
-//    private val REGEX_EMAIL: String = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]+$"
 
     /**
-     * 正则表达式:验证汉字(1-9个汉字)  {1,9} 自定义区间
+     * 正则表达式:验证汉字
      */
-    private val REGEX_CHINESE: String = "^[\u4e00-\u9fa5]{1,9}$"
+    private val REGEX_CHINESE: String = "^[\u4e00-\u9fa5]$"
 
-    /**
-     * 正则表达式:验证身份证
-     */
-    private val REGEX_ID_CARD: String = "(^\\d{15}$)|(^\\d{17}([0-9]|X)$)"
-
-    /**
-     * 正则表达式:验证URL
-     */
-    private val REGEX_URL: String = "http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?"
-
-    /**
-     * 正则表达式:验证IP地址
-     */
-    private val REGEX_IP_ADDR: String = "(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})"
 
     /**
      * 校验用户名
@@ -95,30 +80,4 @@ object ValidatorUtil {
         return Pattern.matches(REGEX_CHINESE, chinese)
     }
 
-    /**
-     * 校验身份证
-     * @param idCard
-     * @return 校验通过返回true，否则返回false
-     */
-    fun isIDCard(idCard: String): Boolean {
-        return Pattern.matches(REGEX_ID_CARD, idCard)
-    }
-
-    /**
-     * 校验URL
-     * @param url
-     * @return 校验通过返回true，否则返回false
-     */
-    fun isUrl(url: String): Boolean {
-        return Pattern.matches(REGEX_URL, url)
-    }
-
-    /**
-     * 校验IP地址
-     * @param ipAddress
-     * @return
-     */
-    fun isIPAddress(ipAddress: String): Boolean {
-        return Pattern.matches(REGEX_IP_ADDR, ipAddress)
-    }
 }
