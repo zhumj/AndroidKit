@@ -45,4 +45,20 @@ object EventBusUtil {
     fun <T> postSticky(event: EventMessage<T>) {
         EventBus.getDefault().postSticky(event)
     }
+
+    /**
+     * 移除粘性事件消息
+     * @param event
+     */
+    fun <T> removeSticky(event: EventMessage<T>) {
+        EventBus.getDefault().removeStickyEvent(event)
+    }
+
+    /**
+     * 移除所有粘性事件消息
+     * @param event
+     */
+    fun <T> removeAllSticky() {
+        EventBus.getDefault().removeAllStickyEvents()
+    }
 }
