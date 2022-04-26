@@ -214,7 +214,7 @@ class ShapeBuilder {
         return this
     }
 
-    fun setShapeGradientGradientRadius(gradientGradientRadius: Int): ShapeBuilder {
+    fun setShapeGradientRadius(gradientGradientRadius: Int): ShapeBuilder {
         this.gradientGradientRadius = gradientGradientRadius
         return this
     }

@@ -23,7 +23,7 @@ abstract class BaseFragment<T : ViewBinding, P: BasePresenter<*>?>: Fragment() {
     private lateinit var _binding: T
 
     protected val binding get() = _binding
-    var presenter: P? = null
+    protected var presenter: P? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

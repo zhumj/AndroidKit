@@ -122,13 +122,22 @@ class CustomEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText
         this.startAnimation(translateAnimation)
     }
 
+    /**
+     * 当当前处于不可编辑状态却设置文本时，自动修改为可编辑状态
+     */
     fun setTextContent(text: CharSequence) {
         if (!isEditable) setEditable(true)
         super.setText(text, BufferType.NORMAL)
     }
 
+    /**
+     * 获取可编辑状态
+     */
     fun getEditable(): Boolean = isEditable
 
+    /**
+     * 设置是否可编辑
+     */
     fun setEditable(editable: Boolean) {
         this.isEditable = editable
         isEnabled = editable
