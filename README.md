@@ -329,7 +329,7 @@ isChinese：验证汉字
 
 ###### ScreenUtil
 
-正则验证工具类
+屏幕相关工具类
 
 ```
 getScreenWidth：获得屏幕宽度
@@ -439,6 +439,8 @@ compare(v1: String, v2: String)：比较大小，如果v1 大于v2 则 返回tru
     setRadius：设置四角倒圆角半径
     setGravity：设置显示位置
     setDuration：设置显示时间
+    
+    create()：启用以上设置并生成Toast
     ```
 
 #### widget
