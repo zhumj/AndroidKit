@@ -189,6 +189,8 @@ ViewBinding + MVP
     
     a.  CustomEditText: 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
 
+    b.  GridRadioGroup：自定义GridLayout，结合 GridLayout + RadioGroup 功能
+
 6.  MVP
     
     a.  MainActivity
