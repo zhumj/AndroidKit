@@ -191,7 +191,11 @@ ViewBinding + MVP
 
     b.  GridRadioGroup：自定义GridLayout，结合 GridLayout + RadioGroup 功能
 
-6.  MVP
+6.  premulticlick
+
+    a.  OnPreMultiClickListener：防止短时间内多次点击，默认 500 毫秒内重复点击无效
+
+7.  MVP
     
     a.  MainActivity
         
