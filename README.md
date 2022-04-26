@@ -281,6 +281,24 @@ sp2px：sp转px
 px2sp：px转sp
 ```
 
+###### ArithmeticUtil
+
+运算相关
+
+```
+add(v1: String, v2: String)：提供精确的加法运算
+add(v1: String, v2: String, scale: Int)：提供精确的加法运算，scale 保留小数位数
+sub(v1: String, v2: String)：提供精确的减法运算
+sub(v1: String, v2: String, scale: Int)：提供精确的减法运算，scale 保留小数位数
+mul(v1: String, v2: String)：提供精确的乘法运算
+mul(v1: String, v2: String, scale: Int)：提供精确的乘法运算，scale 保留小数位数
+p(v1: String, v2: String)：提供精确的除法运算
+p(v1: String, v2: String, scale: Int)：提供精确的除法运算，scale 保留小数位数
+remainder(v1: String, v2: String, scale: Int)：取余数，scale 保留小数位数
+round(b: BigDecimal, scale: Int)：提供精确的小数位四舍五入处理，scale 保留小数位数
+compare(v1: String, v2: String)：比较大小，如果v1 大于v2 则 返回true 否则false
+```
+
 #### builder
 
 1.  ShapeBuilder：shape构造器，使用这个可以直接代码设置 shape 和 selector
