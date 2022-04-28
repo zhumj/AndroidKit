@@ -1,5 +1,7 @@
 # AndroidKitProject
 
+[![](https://jitpack.io/v/com.gitee.zhuminjun/android-kit-project.svg)](https://jitpack.io/#com.gitee.zhuminjun/android-kit-project)
+
 ## 介绍
 
 安卓 快速开发工具，封装了一些常用的基类、工具类、自定义控件，预装了一些常用的第三方库
@@ -70,7 +72,6 @@ ViewBinding + MVP
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
         implementation project(':AndroidKit')
-        // implementation 'com.gitee.zhuminjun:AndroidKit:1.0.1'
     }
     ```
     
@@ -88,7 +89,7 @@ ViewBinding + MVP
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
             ...
-            // CompressHelper 和 PhotoViewer 这两个第三方需要添加下面这行配置
+            // AndroidKit、CompressHelper 和 PhotoViewer 这几个第三方需要添加下面这行配置
             maven { url 'https://jitpack.io' }
         }
     }
