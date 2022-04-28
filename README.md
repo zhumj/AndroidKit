@@ -226,8 +226,85 @@ ViewBinding + MVP
 
 3.  BasePresenter：MVP 中的 Presenter 基类
 
-#### eventbus
+#### builder
+
+1.  ShapeBuilder：shape构造器，使用这个可以直接代码设置 shape 和 selector
+
+    ```
+    setShapeType：设置 Shape 样式
+        annotation class ShapeType {
+            companion object {
+                const val SHAPE_TYPE_RECTANGLE = 0
+                const val SHAPE_TYPE_OVAL = 1
+                const val SHAPE_TYPE_LINE = 2
+                const val SHAPE_TYPE_RING = 3
+            }
+        }
+    setShapeSolidColor：设置底色
+    setShapeCornersRadius：设置四角倒圆角半径
+    setShapeCornersTopLeftRadius：设置左上角倒圆角半径
+    setShapeCornersTopRightRadius：设置右上角倒圆角半径
+    setShapeCornersBottomRightRadius：设置右下角倒圆角半径
+    setShapeCornersBottomLeftRadius：设置左下角倒圆角半径
+    setShapeStrokeWidth：设置边线宽
+    setShapeStrokeColor：设置边线颜色
+    setShapeStrokeDashWidth：设置虚线宽度
+    setShapeStrokeDashGap：设置虚线间隙
+    setShapeUseSelector：设置是否启用Selector
+    setShapeSelectorPressedColor：设置点击状态颜色
+    setShapeSelectorNormalColor：设置默认状态颜色
+    setShapeSelectorDisableColor：设置禁用状态颜色
+    setShapeSizeWidth：设置宽度
+    setShapeSizeHeight：设置高度
+    setShapeGradientAngle：设置渐变角度
+    setShapeGradientCenterX：设置渐变中心X
+    setShapeGradientCenterY：设置渐变中心Y
+    setShapeGradientRadius：设置渐变半径/范围
+    setShapeGradientStartColor：设置渐变开始颜色
+    setShapeGradientCenterColor：设置渐变中心颜色
+    setShapeGradientEndColor：设置渐变结束颜色
+    setShapeGradientType：设置渐变样式
+        annotation class GradientType {
+            companion object {
+                const val GRADIENT_TYPE_LINEAR = 0
+                const val GRADIENT_TYPE_RADIAL = 1
+                const val GRADIENT_TYPE_SWEEP = 2
+            }
+        }
+    setShapeGradientUseLevel：设置渐变等级
     
+    into(view: View)：对 view 启用以上设置
+    ```
+
+2.  ToastBuilder: 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
+
+    ```
+    setToastType：设置类型，可看 ToastType
+        annotation class ToastType {
+            companion object {
+                const val NORMAL = 0
+                const val SUCCESS = 1
+                const val INFO = 2
+                const val WARNING = 3
+                const val ERROR = 4
+            }
+        }
+    setBgColor：设置背景颜色
+    setMessage：设置文本
+    setMsgColor：设置文本颜色
+    setMsgSize：设置文字大小
+    setIconId：设置图标资源ID
+    setIconWidth：设置图标宽度
+    setIconHeight：设置图标高度
+    setRadius：设置四角倒圆角半径
+    setGravity：设置显示位置
+    setDuration：设置显示时间
+    
+    create()：启用以上设置并生成Toast
+    ```
+
+#### eventbus
+
 1.  EventBusUtil：EventBus 工具类
 
     ```
@@ -240,6 +317,41 @@ ViewBinding + MVP
     ```
 
 2.  EventMessage：EventBus 数据实体
+
+#### premulticlick
+
+1.  OnPreMultiClickListener：防止短时间内多次点击，默认 500 毫秒内重复点击无效
+
+    ```
+    View.setOnClickClictener(onPreMultiClickClictener)
+    
+    private val onPreMultiClickClictener = object: OnPreMultiClickClictener(1000) {
+        override fun onValidClick(view: View) {
+            // 有效的点击事件回调
+        }
+
+        override fun onInvalidClick(view: View) {
+            // 无效的点击事件回调
+        }
+    }
+    ```
+
+#### singleton
+
+1.  SingletonHolder：Kotlin 单例辅助类，T：需要实现单例的类，A：传递的参数，如 Context
+
+    ```
+    class MyManager private constructor(context: Context) {
+    
+        fun doSomething() {
+            ...
+        }
+    
+        companion object : SingletonHolder<MyManager, Context>(::MyManager)
+    }
+    
+    MyManager.getInstance(context).doSomething()
+    ```
 
 #### utils
 
@@ -260,7 +372,7 @@ bitmapDecode：对图片进行Base64解码
 
 ###### AppUtil
 
-App 相关工具类，可获取APP版本、名称等，可获取APK安装路径、可检查APK是否安装  
+App 相关工具类，可获取APP版本、名称等，可获取APK安装路径、可检查APK是否安装
 
 ```
 getAppName：获取应用程序名称
@@ -272,7 +384,7 @@ isPkgInstalled：检查APK是否安装
 
 ###### DateTimeUtil
 
-日期/时间 工具类  
+日期/时间 工具类
 
 ```
 getNowLocalDateTime：获取当前日期和时间，如：12小时制 en: April 19, 2022, 1:30 PM   zh: 2022年4月19日 下午1:30
@@ -427,83 +539,6 @@ lifecycleScope.launch {
 */
 ```
 
-#### builder
-
-1.  ShapeBuilder：shape构造器，使用这个可以直接代码设置 shape 和 selector
-
-    ```
-    setShapeType：设置 Shape 样式
-        annotation class ShapeType {
-            companion object {
-                const val SHAPE_TYPE_RECTANGLE = 0
-                const val SHAPE_TYPE_OVAL = 1
-                const val SHAPE_TYPE_LINE = 2
-                const val SHAPE_TYPE_RING = 3
-            }
-        }
-    setShapeSolidColor：设置底色
-    setShapeCornersRadius：设置四角倒圆角半径
-    setShapeCornersTopLeftRadius：设置左上角倒圆角半径
-    setShapeCornersTopRightRadius：设置右上角倒圆角半径
-    setShapeCornersBottomRightRadius：设置右下角倒圆角半径
-    setShapeCornersBottomLeftRadius：设置左下角倒圆角半径
-    setShapeStrokeWidth：设置边线宽
-    setShapeStrokeColor：设置边线颜色
-    setShapeStrokeDashWidth：设置虚线宽度
-    setShapeStrokeDashGap：设置虚线间隙
-    setShapeUseSelector：设置是否启用Selector
-    setShapeSelectorPressedColor：设置点击状态颜色
-    setShapeSelectorNormalColor：设置默认状态颜色
-    setShapeSelectorDisableColor：设置禁用状态颜色
-    setShapeSizeWidth：设置宽度
-    setShapeSizeHeight：设置高度
-    setShapeGradientAngle：设置渐变角度
-    setShapeGradientCenterX：设置渐变中心X
-    setShapeGradientCenterY：设置渐变中心Y
-    setShapeGradientRadius：设置渐变半径/范围
-    setShapeGradientStartColor：设置渐变开始颜色
-    setShapeGradientCenterColor：设置渐变中心颜色
-    setShapeGradientEndColor：设置渐变结束颜色
-    setShapeGradientType：设置渐变样式
-        annotation class GradientType {
-            companion object {
-                const val GRADIENT_TYPE_LINEAR = 0
-                const val GRADIENT_TYPE_RADIAL = 1
-                const val GRADIENT_TYPE_SWEEP = 2
-            }
-        }
-    setShapeGradientUseLevel：设置渐变等级
-    
-    into(view: View)：对 view 启用以上设置
-    ```
-
-2.  ToastBuilder: 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
-
-    ```
-    setToastType：设置类型，可看 ToastType
-        annotation class ToastType {
-            companion object {
-                const val NORMAL = 0
-                const val SUCCESS = 1
-                const val INFO = 2
-                const val WARNING = 3
-                const val ERROR = 4
-            }
-        }
-    setBgColor：设置背景颜色
-    setMessage：设置文本
-    setMsgColor：设置文本颜色
-    setMsgSize：设置文字大小
-    setIconId：设置图标资源ID
-    setIconWidth：设置图标宽度
-    setIconHeight：设置图标高度
-    setRadius：设置四角倒圆角半径
-    setGravity：设置显示位置
-    setDuration：设置显示时间
-    
-    create()：启用以上设置并生成Toast
-    ```
-
 #### widget
     
 1.  CustomEditText: 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
@@ -516,10 +551,6 @@ lifecycleScope.launch {
     ```
 
 2.  GridRadioGroup：自定义GridLayout，结合 GridLayout + RadioGroup 功能
-
-#### premulticlick
-
-1.  OnPreMultiClickListener：防止短时间内多次点击，默认 500 毫秒内重复点击无效
 
 #### MVP
     
