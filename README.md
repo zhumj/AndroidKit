@@ -1,6 +1,6 @@
 # AndroidKitProject
 
-[![](https://jitpack.io/v/com.gitee.zhuminjun/android-kit-project.svg)](https://jitpack.io/#com.gitee.zhuminjun/android-kit-project)
+[![](https://jitpack.io/v/com.gitee.zhuminjun/AndroidKit.svg)](https://jitpack.io/#com.gitee.zhuminjun/AndroidKit)
 
 ## 介绍
 
