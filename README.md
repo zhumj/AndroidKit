@@ -703,3 +703,4 @@ setEditable：设置 EditText 是否可编辑
 6.  新增自定义View: GridRadioGroup
 7.  EventBusUtil: 新增 移除指定粘性事件 和 移除所有粘性事件 方法 
 8.  ValidatorUtil: 更新 密码验证 正则表达式
+9.  新增google 开源手机号码相关库：libphonenumber:8.12.47
