@@ -75,7 +75,7 @@ ViewBinding + MVP
     }
     ```
     
-**或者**
+    **或者**
 
 1.  在 settings.gradle 里面
 
@@ -130,7 +130,7 @@ ViewBinding + MVP
 
 ###### 在 JAVA 项目上引用
 
-**在 Kotlin 项目上引用** 的基础上
+    **在 Kotlin 项目上引用** 的基础上
 
 1.  在项目 build.gradle 里面
 
