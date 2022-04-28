@@ -152,206 +152,224 @@ ViewBinding + MVP
 ## 功能
 
 #### base
-    
-1.  BaseActivity：AppCompatActivity 基类
 
-    ```
-    protected val binding: ViewBinding
-    protected var presenter: BasePresenter
-    
-    initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
-    
-    protected abstract fun getViewBinding(): T //加载ViewBinding
-    protected abstract fun obtainPresenter(): P? //加载Presenter
-    
-    /**
-     * 是否注册事件分发
-     * @return true 注册；false 不注册，默认不注册
-     */
-    open fun isRegisteredEventBus(): Boolean = false
+###### BaseActivity
 
-    /**
-     * 接收到Eventbus分发的事件
-     * @param event 事件
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onReceiveEvent(event: EventMessage<*>) {
-    }
+AppCompatActivity 基类
 
-    /**
-     * 接收到Eventbus分发的粘性事件
-     * @param event 粘性事件
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    open fun onReceiveStickyEvent(event: EventMessage<*>) {
-    }
-    ```
+```
+protected val binding: ViewBinding
+protected var presenter: BasePresenter
 
-2.  BaseFragment：Fragment 基类
+initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
 
-    ```
-    protected val binding: ViewBinding
-    protected var presenter: BasePresenter
-    
-    initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
-    
-    protected abstract fun getViewBinding(): T //加载ViewBinding
-    protected abstract fun obtainPresenter(): P? //加载Presenter
-    
-    /**
-     * 是否注册事件分发
-     * @return true 注册；false 不注册，默认不注册
-     */
-    open fun isRegisteredEventBus(): Boolean = false
+protected abstract fun getViewBinding(): T //加载ViewBinding
+protected abstract fun obtainPresenter(): P? //加载Presenter
 
-    /**
-     * 接收到Eventbus分发的事件
-     * @param event 事件
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onReceiveEvent(event: EventMessage<*>) {
-    }
+/**
+ * 是否注册事件分发
+ * @return true 注册；false 不注册，默认不注册
+ */
+open fun isRegisteredEventBus(): Boolean = false
 
-    /**
-     * 接收到Eventbus分发的粘性事件
-     * @param event 粘性事件
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    open fun onReceiveStickyEvent(event: EventMessage<*>) {
-    }
-    
-    //销毁 Fragment 时，可能需要做些 解除广播绑定，服务之类的鬼东西
-    protected abstract fun onDestroyViewAndThing()
-    ```
+/**
+ * 接收到Eventbus分发的事件
+ * @param event 事件
+ */
+@Subscribe(threadMode = ThreadMode.MAIN)
+open fun onReceiveEvent(event: EventMessage<*>) {
+}
 
-3.  BasePresenter：MVP 中的 Presenter 基类
+/**
+ * 接收到Eventbus分发的粘性事件
+ * @param event 粘性事件
+ */
+@Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+open fun onReceiveStickyEvent(event: EventMessage<*>) {
+}
+```
+
+###### BaseFragment
+
+Fragment 基类
+
+```
+protected val binding: ViewBinding
+protected var presenter: BasePresenter
+
+initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
+
+protected abstract fun getViewBinding(): T //加载ViewBinding
+protected abstract fun obtainPresenter(): P? //加载Presenter
+
+/**
+ * 是否注册事件分发
+ * @return true 注册；false 不注册，默认不注册
+ */
+open fun isRegisteredEventBus(): Boolean = false
+
+/**
+ * 接收到Eventbus分发的事件
+ * @param event 事件
+ */
+@Subscribe(threadMode = ThreadMode.MAIN)
+open fun onReceiveEvent(event: EventMessage<*>) {
+}
+
+/**
+ * 接收到Eventbus分发的粘性事件
+ * @param event 粘性事件
+ */
+@Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+open fun onReceiveStickyEvent(event: EventMessage<*>) {
+}
+
+//销毁 Fragment 时，可能需要做些 解除广播绑定，服务之类的鬼东西
+protected abstract fun onDestroyViewAndThing()
+```
+
+###### BasePresenter
+
+MVP 中的 Presenter 基类
 
 #### builder
 
-1.  ShapeBuilder：shape构造器，使用这个可以直接代码设置 shape 和 selector
+###### ShapeBuilder
 
-    ```
-    setShapeType：设置 Shape 样式
-        annotation class ShapeType {
-            companion object {
-                const val SHAPE_TYPE_RECTANGLE = 0
-                const val SHAPE_TYPE_OVAL = 1
-                const val SHAPE_TYPE_LINE = 2
-                const val SHAPE_TYPE_RING = 3
-            }
-        }
-    setShapeSolidColor：设置底色
-    setShapeCornersRadius：设置四角倒圆角半径
-    setShapeCornersTopLeftRadius：设置左上角倒圆角半径
-    setShapeCornersTopRightRadius：设置右上角倒圆角半径
-    setShapeCornersBottomRightRadius：设置右下角倒圆角半径
-    setShapeCornersBottomLeftRadius：设置左下角倒圆角半径
-    setShapeStrokeWidth：设置边线宽
-    setShapeStrokeColor：设置边线颜色
-    setShapeStrokeDashWidth：设置虚线宽度
-    setShapeStrokeDashGap：设置虚线间隙
-    setShapeUseSelector：设置是否启用Selector
-    setShapeSelectorPressedColor：设置点击状态颜色
-    setShapeSelectorNormalColor：设置默认状态颜色
-    setShapeSelectorDisableColor：设置禁用状态颜色
-    setShapeSizeWidth：设置宽度
-    setShapeSizeHeight：设置高度
-    setShapeGradientAngle：设置渐变角度
-    setShapeGradientCenterX：设置渐变中心X
-    setShapeGradientCenterY：设置渐变中心Y
-    setShapeGradientRadius：设置渐变半径/范围
-    setShapeGradientStartColor：设置渐变开始颜色
-    setShapeGradientCenterColor：设置渐变中心颜色
-    setShapeGradientEndColor：设置渐变结束颜色
-    setShapeGradientType：设置渐变样式
-        annotation class GradientType {
-            companion object {
-                const val GRADIENT_TYPE_LINEAR = 0
-                const val GRADIENT_TYPE_RADIAL = 1
-                const val GRADIENT_TYPE_SWEEP = 2
-            }
-        }
-    setShapeGradientUseLevel：设置渐变等级
-    
-    into(view: View)：对 view 启用以上设置
-    ```
+shape构造器，使用这个可以直接代码设置 shape 和 selector
 
-2.  ToastBuilder: 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
-
-    ```
-    setToastType：设置类型，可看 ToastType
-        annotation class ToastType {
-            companion object {
-                const val NORMAL = 0
-                const val SUCCESS = 1
-                const val INFO = 2
-                const val WARNING = 3
-                const val ERROR = 4
-            }
+```
+setShapeType：设置 Shape 样式
+    annotation class ShapeType {
+        companion object {
+            const val SHAPE_TYPE_RECTANGLE = 0
+            const val SHAPE_TYPE_OVAL = 1
+            const val SHAPE_TYPE_LINE = 2
+            const val SHAPE_TYPE_RING = 3
         }
-    setBgColor：设置背景颜色
-    setMessage：设置文本
-    setMsgColor：设置文本颜色
-    setMsgSize：设置文字大小
-    setIconId：设置图标资源ID
-    setIconWidth：设置图标宽度
-    setIconHeight：设置图标高度
-    setRadius：设置四角倒圆角半径
-    setGravity：设置显示位置
-    setDuration：设置显示时间
-    
-    create()：启用以上设置并生成Toast
-    ```
+    }
+setShapeSolidColor：设置底色
+setShapeCornersRadius：设置四角倒圆角半径
+setShapeCornersTopLeftRadius：设置左上角倒圆角半径
+setShapeCornersTopRightRadius：设置右上角倒圆角半径
+setShapeCornersBottomRightRadius：设置右下角倒圆角半径
+setShapeCornersBottomLeftRadius：设置左下角倒圆角半径
+setShapeStrokeWidth：设置边线宽
+setShapeStrokeColor：设置边线颜色
+setShapeStrokeDashWidth：设置虚线宽度
+setShapeStrokeDashGap：设置虚线间隙
+setShapeUseSelector：设置是否启用Selector
+setShapeSelectorPressedColor：设置点击状态颜色
+setShapeSelectorNormalColor：设置默认状态颜色
+setShapeSelectorDisableColor：设置禁用状态颜色
+setShapeSizeWidth：设置宽度
+setShapeSizeHeight：设置高度
+setShapeGradientAngle：设置渐变角度
+setShapeGradientCenterX：设置渐变中心X
+setShapeGradientCenterY：设置渐变中心Y
+setShapeGradientRadius：设置渐变半径/范围
+setShapeGradientStartColor：设置渐变开始颜色
+setShapeGradientCenterColor：设置渐变中心颜色
+setShapeGradientEndColor：设置渐变结束颜色
+setShapeGradientType：设置渐变样式
+    annotation class GradientType {
+        companion object {
+            const val GRADIENT_TYPE_LINEAR = 0
+            const val GRADIENT_TYPE_RADIAL = 1
+            const val GRADIENT_TYPE_SWEEP = 2
+        }
+    }
+setShapeGradientUseLevel：设置渐变等级
+
+into(view: View)：对 view 启用以上设置
+```
+
+###### ToastBuilder
+
+自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
+
+```
+setToastType：设置类型，可看 ToastType
+    annotation class ToastType {
+        companion object {
+            const val NORMAL = 0
+            const val SUCCESS = 1
+            const val INFO = 2
+            const val WARNING = 3
+            const val ERROR = 4
+        }
+    }
+setBgColor：设置背景颜色
+setMessage：设置文本
+setMsgColor：设置文本颜色
+setMsgSize：设置文字大小
+setIconId：设置图标资源ID
+setIconWidth：设置图标宽度
+setIconHeight：设置图标高度
+setRadius：设置四角倒圆角半径
+setGravity：设置显示位置
+setDuration：设置显示时间
+
+create()：启用以上设置并生成Toast
+```
 
 #### eventbus
 
-1.  EventBusUtil：EventBus 工具类
+###### EventBusUtil
 
-    ```
-    register：注册
-    unregister：解除注册
-    post：发送普通事件
-    postSticky：发送粘性事件
-    removeSticky：移除指定粘性事件
-    removeAllSticky：移除全部粘性事件
-    ```
+EventBus 工具类
 
-2.  EventMessage：EventBus 数据实体
+```
+register：注册
+unregister：解除注册
+post：发送普通事件
+postSticky：发送粘性事件
+removeSticky：移除指定粘性事件
+removeAllSticky：移除全部粘性事件
+```
+
+###### EventMessage
+
+EventBus 数据实体
 
 #### premulticlick
 
-1.  OnPreMultiClickListener：防止短时间内多次点击，默认 500 毫秒内重复点击无效
+###### OnPreMultiClickListener
 
-    ```
-    View.setOnClickClictener(onPreMultiClickClictener)
-    
-    private val onPreMultiClickClictener = object: OnPreMultiClickClictener(1000) {
-        override fun onValidClick(view: View) {
-            // 有效的点击事件回调
-        }
+防止短时间内多次点击，默认 500 毫秒内重复点击无效
 
-        override fun onInvalidClick(view: View) {
-            // 无效的点击事件回调
-        }
+```
+View.setOnClickClictener(onPreMultiClickClictener)
+
+private val onPreMultiClickClictener = object: OnPreMultiClickClictener(1000) {
+    override fun onValidClick(view: View) {
+        // 有效的点击事件回调
     }
-    ```
+
+    override fun onInvalidClick(view: View) {
+        // 无效的点击事件回调
+    }
+}
+```
 
 #### singleton
 
-1.  SingletonHolder：Kotlin 单例辅助类，T：需要实现单例的类，A：传递的参数，如 Context
+###### SingletonHolder
 
-    ```
-    class MyManager private constructor(context: Context) {
-    
-        fun doSomething() {
-            ...
-        }
-    
-        companion object : SingletonHolder<MyManager, Context>(::MyManager)
+Kotlin 单例辅助类，T：需要实现单例的类，A：传递的参数，如 Context
+
+```
+class MyManager private constructor(context: Context) {
+
+    fun doSomething() {
+        ...
     }
-    
-    MyManager.getInstance(context).doSomething()
-    ```
+
+    companion object : SingletonHolder<MyManager, Context>(::MyManager)
+}
+
+MyManager.getInstance(context).doSomething()
+```
 
 #### utils
 
@@ -540,20 +558,26 @@ lifecycleScope.launch {
 ```
 
 #### widget
-    
-1.  CustomEditText: 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
 
-    ```
-    startShakeAnimation：晃动动画
-    setTextContent：设置文本，当 isEditable = false 时，则自动改为可编辑状态
-    getEditable：判断 EditText 是否处于可编辑状态
-    setEditable：设置 EditText 是否可编辑
-    ```
+###### CustomEditText
 
-2.  GridRadioGroup：自定义GridLayout，结合 GridLayout + RadioGroup 功能
+自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
+
+```
+startShakeAnimation：晃动动画
+setTextContent：设置文本，当 isEditable = false 时，则自动改为可编辑状态
+getEditable：判断 EditText 是否处于可编辑状态
+setEditable：设置 EditText 是否可编辑
+```
+
+###### GridRadioGroup
+
+自定义GridLayout，结合 GridLayout + RadioGroup 功能
 
 #### MVP
-    
+
+使用    
+
 1.  MainActivity
         
     ```
