@@ -19,9 +19,9 @@ ViewBinding + MVP
 
 ## 使用
 
-1.  在 Kotlin 项目上引用
+###### 在 Kotlin 项目上引用
 
-    在 settings.gradle 里面
+1.  在 settings.gradle 里面
     
     ```
     pluginManagement {
@@ -44,7 +44,7 @@ ViewBinding + MVP
     include ':AndroidKit'
     ```
     
-    在项目 build.gradle 里面
+2.  在项目 build.gradle 里面
     
     ```
     plugins {
@@ -59,7 +59,7 @@ ViewBinding + MVP
     }
     ```
     
-    在应用 build.gradle 里面
+3.  在应用 build.gradle 里面
     
     ```
     android {
@@ -75,9 +75,9 @@ ViewBinding + MVP
     }
     ```
     
-    **或者**
+**或者**
 
-    在 settings.gradle 里面
+1.  在 settings.gradle 里面
 
     ```
     pluginManagement {
@@ -97,7 +97,7 @@ ViewBinding + MVP
     include ':app'
     ```
 
-    在项目 build.gradle 里面
+2.  在项目 build.gradle 里面
 
     ```
     plugins {
@@ -112,7 +112,7 @@ ViewBinding + MVP
     }
     ```
 
-    在应用 build.gradle 里面
+3.  在应用 build.gradle 里面
 
     ```
     android {
@@ -127,10 +127,12 @@ ViewBinding + MVP
         implementation 'com.gitee.zhuminjun:AndroidKit:1.0.2'
     }
     ```
-    
-2.  在 JAVA 项目上引用：**在 Kotlin 项目上引用** 的基础上
 
-    在项目 build.gradle 里面
+###### 在 JAVA 项目上引用
+
+**在 Kotlin 项目上引用** 的基础上
+
+1.  在项目 build.gradle 里面
 
     ```
     plugins {
@@ -140,7 +142,7 @@ ViewBinding + MVP
     }
     ```
 
-    在应用 build.gradle 里面
+2.  在应用 build.gradle 里面
 
     ```
     plugins {
