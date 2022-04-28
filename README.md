@@ -686,3 +686,20 @@ setEditable：设置 EditText 是否可编辑
 5.  图片加载：[Coil:1.4.0](https://coil-kt.github.io/coil/)
 
 6.  google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
+
+## 版本
+
+#### v1.0.1
+
+略略略
+
+#### v1.0.2
+
+1.  新增 Kotlin 单例辅助类: SingletonHolder
+2.  新增位置相关工具类: LocationUtil
+3.  新增运算相关工具类: ArithmeticUtil
+4.  新增分辨率工具类: DensityUtil 
+5.  新增防止短时间内多次点击: OnPreMultiClickListener 
+6.  新增自定义View: GridRadioGroup
+7.  EventBusUtil: 新增 移除指定粘性事件 和 移除所有粘性事件 方法 
+8.  ValidatorUtil: 更新 密码验证 正则表达式
