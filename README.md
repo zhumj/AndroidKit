@@ -75,7 +75,7 @@ ViewBinding + MVP
     }
     ```
     
-    **或者**
+**或者**
 
 1.  在 settings.gradle 里面
 
