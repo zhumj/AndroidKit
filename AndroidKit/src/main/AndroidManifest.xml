@@ -2,4 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhumj.androidkit">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--定位权限 安卓9.0及以下用下-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--定位权限，Android Q 新增后台定位权限-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
 </manifest>

@@ -366,6 +366,67 @@ round(b: BigDecimal, scale: Int)：提供精确的小数位四舍五入处理，
 compare(v1: String, v2: String)：比较大小，如果v1 大于v2 则 返回true 否则false
 ```
 
+###### LocationUtil
+
+位置相关
+
+```
+interface OnGetLocationListener{
+    fun isLocationDisable() { }
+    fun onLocationCallBack(location: Location?) { }
+    fun onAddressCallBack(address: Address?) { }
+}
+
+isLocationEnabled：判断位置信息开关是否打开
+getAddress：获取地址信息，协程使用回调OnGetLocationListener返回数据
+address：获取地址信息
+getLocation：获取位置信息，协程使用回调OnGetLocationListener返回数据
+locale：获取位置信息，协程
+gotoLocationSettings：进入“位置信息”设置界面
+```
+
+使用
+
+```
+val locationUtil = LocationUtil(this)
+locationUtil.getAddress(lifecycleScope, object : LocationUtil.OnGetLocationListener {
+    // 位置信息开关处于禁用状态
+    override fun isLocationDisable() {
+        
+    }
+    
+    override fun onAddressCallBack(address: Address?) {
+        validPhone(address)
+    }
+})
+
+/*
+locationUtil.getLocation(lifecycleScope, object : LocationUtil.OnGetLocationListener {
+    override fun isLocationDisable() {
+    
+    }
+    
+    override fun onLocationCallBack(location: Location?) {
+        
+    }
+})
+*/
+
+/*
+lifecycleScope.launch {
+    locationUtil.isLocationEnabled().also {
+        if (it) {
+            locationUtil.locale().also { location: Location? ->
+                locationUtil.address(location).also { address: Address? ->
+                    
+                }
+            }
+        }
+    }
+}
+*/
+```
+
 #### builder
 
 1.  ShapeBuilder：shape构造器，使用这个可以直接代码设置 shape 和 selector
@@ -559,12 +620,14 @@ compare(v1: String, v2: String)：比较大小，如果v1 大于v2 则 返回tru
 
 ## 第三方库
 
-1.  权限请求：[Easypermissions-ktx：1.0.0](https://githu2.com/vmadalin/easypermissions-ktx)
+1.  权限请求：[Easypermissions-ktx：1.0.0](https://github.com/vmadalin/easypermissions-ktx)
 
-2.  事件总线：[Eventbus:3.3.1](https://githu2.com/greenrobot/EventBus)
+2.  事件总线：[Eventbus:3.3.1](https://github.com/greenrobot/EventBus)
 
-3.  比较好用的图片压缩：[CompressHelper:1.0.5](https://githu2.com/nanchen2251/CompressHelper)
+3.  比较好用的图片压缩：[CompressHelper:1.0.5](https://github.com/nanchen2251/CompressHelper)
     
-4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://githu2.com/wanglu1209/PhotoViewer)
+4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
 
-5.  图片加载：[Coil:1.4.0](https://coil-kt.githu2.io/coil/)
+5.  图片加载：[Coil:1.4.0](https://coil-kt.github.io/coil/)
+
+6.  google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
