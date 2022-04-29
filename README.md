@@ -290,22 +290,15 @@ into(view: View)：对 view 启用以上设置
 ###### ToastBuilder
 
 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
+**@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarBuilder 代替")**
 
 ```
 setToastType：设置类型，可看 ToastType
-    annotation class ToastType {
-        companion object {
-            const val NORMAL = 0
-            const val SUCCESS = 1
-            const val INFO = 2
-            const val WARNING = 3
-            const val ERROR = 4
-        }
-    }
+    enum class ToastType { NORMAL, SUCCESS, INFO, WARNING, ERROR }
 setBgColor：设置背景颜色
 setMessage：设置文本
-setMsgColor：设置文本颜色
-setMsgSize：设置文字大小
+setTextColor：设置文本颜色
+setTextSize：设置文字大小
 setIconId：设置图标资源ID
 setIconWidth：设置图标宽度
 setIconHeight：设置图标高度
@@ -314,6 +307,47 @@ setGravity：设置显示位置
 setDuration：设置显示时间
 
 create()：启用以上设置并生成Toast
+```
+
+###### SnackBarBuilder
+
+SnackBar 构造器，单例模式，在 ToastBuilder 被 @Deprecated 标记后的替代品，用法和 ToastBuilder 差不多
+
+```
+setToastType：设置类型，可看 ToastType
+    enum class ToastType { NORMAL, SUCCESS, INFO, WARNING, ERROR }
+setBgColor：设置背景颜色
+setMessage：设置文本
+setTextColor：设置文本颜色
+setTextSize：设置文字大小
+setIconId：设置图标资源ID
+setIconWidth：设置图标宽度
+setIconHeight：设置图标高度
+setRadius：设置四角倒圆角半径
+setDuration：设置显示时间
+
+data class ActionConfig(
+    val actionText: String = "DISMISS",
+    val actionTextColor: Int? = null,
+    val actionTextSize: Float? = null,
+    val listener: View.OnClickListener? = null
+)：SnackBar 按钮的一些配置，listener 跟 duration = Snackbar.LENGTH_INDEFINITE 配合决定按钮显不显示
+
+showSnackBar：显示系统纯正的 SnackBar
+showToast：显示自定义了 View 的 Toast 样式的 SnackBar
+dismissSnackBar：取消SnackBar显示
+```
+
+使用
+
+```
+SnackBarBuilder.getInstance(this@MainActivity)
+    .setToastType(SnackBarBuilder.ToastType.INFO)
+    .setDuration(Snackbar.LENGTH_INDEFINITE)
+    .setMessage("显示Toast")
+    .showToast(view, SnackBarBuilder.ActionConfig {
+        SnackBarBuilder.getInstance(this@MainActivity).dismissSnackBar()
+    })
 ```
 
 #### eventbus

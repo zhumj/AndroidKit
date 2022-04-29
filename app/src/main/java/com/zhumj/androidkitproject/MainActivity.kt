@@ -9,11 +9,13 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import com.zhumj.androidkit.base.BaseActivity
+import com.zhumj.androidkit.builder.SnackBarBuilder
 import com.zhumj.androidkit.builder.ToastBuilder
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
@@ -54,14 +56,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     private val onPreMultiClickListener = object : OnPreMultiClickListener(2000) {
         override fun onValidClick(view: View) {
             if (view is  Button) {
-                Log.d(TAG, view.text.toString() + "点击有效")
+                SnackBarBuilder.getInstance(this@MainActivity)
+                    .setToastType(SnackBarBuilder.ToastType.SUCCESS)
+                    .setMessage(view.text.toString() + "点击有效")
+                    .showToast(view)
             }
             checkLocationPermission()
         }
 
         override fun onInvalidClick(view: View) {
             if (view is  Button) {
-                Log.d(TAG, view.text.toString() + "点击无效")
+                SnackBarBuilder.getInstance(this@MainActivity)
+                    .setToastType(SnackBarBuilder.ToastType.ERROR)
+                    .setDuration(Snackbar.LENGTH_INDEFINITE)
+                    .setMessage(view.text.toString() + "点击无效")
+                    .showToast(view, SnackBarBuilder.ActionConfig {
+                        SnackBarBuilder.getInstance(this@MainActivity).dismissSnackBar()
+                    })
             }
         }
     }

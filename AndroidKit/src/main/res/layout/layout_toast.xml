@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#88000000"
+    android:gravity="center"
     android:padding="@dimen/dp_8"
     android:orientation="horizontal">
 
@@ -13,14 +14,10 @@
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_24"
         android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_error"
         tools:ignore="ContentDescription" />
-
-    <View
-        android:id="@+id/v1"
-        android:layout_width="@dimen/dp_8"
-        android:layout_height="0dp"/>
 
     <TextView
         android:id="@+id/tvToast"
@@ -30,5 +27,16 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/sp_16"
         android:text="111"/>
+
+    <Button
+        android:id="@+id/btnToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAllCaps="false"
+        android:text="Dismiss"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_16"
+        android:background="?android:attr/selectableItemBackground"/>
 
 </LinearLayout>

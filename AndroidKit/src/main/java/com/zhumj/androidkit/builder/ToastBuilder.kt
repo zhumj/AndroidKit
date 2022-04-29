@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -32,9 +33,9 @@ annotation class ToastType {
 /**
  * @author Created by zhumj
  * @date 2022/4/23 16:59
- * @description : 文件描述
+ * @description : 吐司构造器
  */
-@Deprecated(message = "Android 11（API 30）之后 Toast.setView() 不能自定义了")
+@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarBuilder 代替")
 class ToastBuilder(private val context: Context) {
 
     //Toast类型
@@ -60,9 +61,9 @@ class ToastBuilder(private val context: Context) {
     private var message: String? = null
     //文本颜色
     @ColorInt
-    private var msgColor: Int = Color.parseColor("#FFFFFF")
+    private var textColor: Int = Color.parseColor("#FFFFFF")
     //字号大小
-    private var msgSize: Float = context.resources.getDimension(R.dimen.px_16)
+    private var textSize: Float = context.resources.getDimension(R.dimen.px_16)
     //图片
     @DrawableRes
     private var iconId: Int? = null
@@ -106,12 +107,12 @@ class ToastBuilder(private val context: Context) {
     }
 
     fun setMsgColor(@ColorInt color: Int): ToastBuilder {
-        this.msgColor = color
+        this.textColor = color
         return this
     }
 
     fun setMsgSize(size: Float): ToastBuilder {
-        this.msgSize = size
+        this.textSize = size
         return this
     }
 
@@ -149,45 +150,43 @@ class ToastBuilder(private val context: Context) {
 
     @SuppressLint("InflateParams")
     fun create(): Toast {
-        val contentView = LayoutInflater.from(context)
-            .inflate(R.layout.layout_toast, null)
+        val contentView = LayoutInflater.from(context).inflate(R.layout.layout_toast, null).also {
+            ShapeBuilder()
+                .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
+                .setShapeCornersRadius(radius)
+                .setShapeSolidColor(bgColor!!)
+                .into(it)
 
-        val v1 = contentView.findViewById<View>(R.id.v1)
+            it.findViewById<TextView>(R.id.tvToast).also { v: TextView ->
+                v.setTextColor(textColor)
+                v.textSize = textSize
+                if (message.isNullOrBlank()) {
+                    v.visibility = View.GONE
+                } else {
+                    v.text = message
+                }
+            }
 
-        val msgText = contentView.findViewById<TextView>(R.id.tvToast)
-        msgText.setTextColor(msgColor)
-        msgText.textSize = msgSize
-        if (message.isNullOrBlank()) {
-            v1.visibility = View.GONE
-            msgText.visibility = View.GONE
-        } else {
-            msgText.text = message
+            it.findViewById<ImageView>(R.id.ivToast).also { imageView ->
+                imageView.layoutParams.height = iconHeight
+                imageView.layoutParams.width = iconWidth
+                if (iconId != null) {
+                    imageView.visibility = View.VISIBLE
+                    imageView.setImageResource(iconId!!)
+                } else {
+                    imageView.visibility = View.GONE
+                }
+            }
+
+            it.findViewById<Button>(R.id.btnToast).also { button ->
+                button.visibility = View.GONE
+            }
         }
 
-        val ivToast = contentView.findViewById<ImageView>(R.id.ivToast)
-        val layoutParam = ivToast.layoutParams
-        layoutParam.height = iconHeight
-        layoutParam.width = iconWidth
-        ivToast.layoutParams = layoutParam
-        if (iconId != null) {
-            ivToast.setImageResource(iconId!!)
-        } else {
-            v1.visibility = View.GONE
-            ivToast.visibility = View.GONE
+        return Toast(context).also {
+            it.view = contentView
+            it.duration = duration
+            it.setGravity(gravity, xOffset, yOffset)
         }
-
-        ShapeBuilder()
-            .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
-            .setShapeCornersRadius(radius)
-            .setShapeSolidColor(bgColor!!)
-            .into(contentView)
-
-        val toast = Toast(context)
-        toast.view = contentView
-        toast.duration = duration
-        //设置Toast显示位置
-        toast.setGravity(gravity, xOffset, yOffset)
-
-        return toast
     }
 }
