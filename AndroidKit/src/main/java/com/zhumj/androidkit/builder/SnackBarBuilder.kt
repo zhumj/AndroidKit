@@ -148,19 +148,20 @@ class SnackBarBuilder(private val context: Context) {
      */
     fun showSnackBar(parent: View, actionConfig: ActionConfig = ActionConfig()) {
         dismissSnackBar()
-        snackBarWeakReference = WeakReference(Snackbar.make(parent, message ?: "", duration))
-        snackBarWeakReference?.get().also {
-            it?.view?.also { v: View ->
-                ShapeBuilder()
-                    .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
-                    .setShapeCornersRadius(radius)
-                    .setShapeSolidColor(bgColor!!)
-                    .into(v)
+        snackBarWeakReference = WeakReference(Snackbar.make(parent, message ?: "", duration)).also {
+            it.get()?.also { snackBar ->
+                snackBar.view.also { v: View ->
+                    ShapeBuilder()
+                        .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
+                        .setShapeCornersRadius(radius)
+                        .setShapeSolidColor(bgColor!!)
+                        .into(v)
+                }
+                if (duration == Snackbar.LENGTH_INDEFINITE && actionConfig.listener != null) {
+                    snackBar.setAction(actionConfig.actionText, actionConfig.listener).setActionTextColor(actionConfig.actionTextColor ?: textColor)
+                }
+                snackBar.show()
             }
-            if (duration == Snackbar.LENGTH_INDEFINITE && actionConfig.listener != null) {
-                it?.setAction(actionConfig.actionText, actionConfig.listener)?.setActionTextColor(actionConfig.actionTextColor ?: textColor)
-            }
-            it?.show()
         }
     }
 
@@ -169,9 +170,9 @@ class SnackBarBuilder(private val context: Context) {
      */
     fun showToast(parent: View, actionConfig: ActionConfig = ActionConfig()) {
         dismissSnackBar()
-        snackBarWeakReference = WeakReference(Snackbar.make(parent, message ?: "", duration)).apply {
-            this.get()?.also {
-                it.view.apply {
+        snackBarWeakReference = WeakReference(Snackbar.make(parent, message ?: "", duration)).also {
+            it.get()?.also { snackBar ->
+                snackBar.view.apply {
                     this.minimumWidth = 0
                     this.minimumHeight = 0
                     this.setPadding(0)
@@ -182,9 +183,9 @@ class SnackBarBuilder(private val context: Context) {
                         .into(this)
                 }
 
-                it.show()
+                snackBar.show()
 
-                (it.view as SnackbarLayout).also { layout: SnackbarLayout ->
+                (snackBar.view as SnackbarLayout).also { layout: SnackbarLayout ->
                     layout.removeAllViews()
                     createContentView(actionConfig).also { contentView: View ->
                         layout.addView(contentView)
@@ -192,7 +193,6 @@ class SnackBarBuilder(private val context: Context) {
                 }
             }
         }
-
     }
 
     @SuppressLint("InflateParams")
