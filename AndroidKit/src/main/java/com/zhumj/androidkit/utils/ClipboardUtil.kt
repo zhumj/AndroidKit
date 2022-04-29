@@ -96,7 +96,7 @@ object ClipboardUtil {
     }
 
     /**
-     * 获取剪切板上的内容，不管什么类型都强制转成String
+     * 获取剪切板上的第一条内容，不管什么类型都强制转成String
      */
     fun getClipboardContent(context: Context): String? {
         try {

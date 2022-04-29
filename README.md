@@ -560,6 +560,22 @@ lifecycleScope.launch {
 */
 ```
 
+###### ClipboardUtil
+
+剪切板相关工具类
+
+```
+copyText：复制字符串到剪切板
+copyHtmlText：复制 Html 字符串到剪切板
+copyUri：复制 Uri 到剪切板
+copyRawUri：复制 RawUri 到剪切板
+copyIntent：复制 Intent 到剪切板
+getClipboardContent：获取剪切板上的第一条内容，不管什么类型都强制转成String
+getClipType：获取第一条内容类型
+
+enum class ClipType { UNKNOWN, TEXT, INTENT, URI, HTML, }
+```
+
 #### widget
 
 ###### CustomEditText

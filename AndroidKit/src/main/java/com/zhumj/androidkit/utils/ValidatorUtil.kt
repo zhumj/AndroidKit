@@ -9,10 +9,10 @@ import java.util.regex.Pattern
  */
 object ValidatorUtil {
     /**
-     * 正则表达式:验证用户名(不包含中文和特殊字符，5-17位)
+     * 正则表达式:验证用户名(a-z,A-Z,0-9,"_",不包含中文和特殊字符，不能以“_”结尾，5-17位)
      * 如果用户名使用手机号码或邮箱 则结合手机号验证和邮箱验证
      */
-    private val REGEX_USERNAME: String = "^[a-zA-Z]\\w{5,17}$"
+    private val REGEX_USERNAME: String = "^[a-zA-Z]\\w{5,17}(?<!_)$"
 
     /**
      * 正则表达式:验证密码
