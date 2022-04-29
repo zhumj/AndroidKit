@@ -14,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
 import com.zhumj.androidkit.R
 
+/*
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
 @MustBeDocumented
 @IntDef(ToastType.NORMAL, ToastType.SUCCESS, ToastType.INFO, ToastType.WARNING, ToastType.ERROR)
@@ -27,6 +28,7 @@ annotation class ToastType {
         const val ERROR = 4
     }
 }
+ */
 
 /**
  * @author Created by zhumj
@@ -35,9 +37,11 @@ annotation class ToastType {
  */
 class ToastBuilder(private val context: Context) {
 
+
+
     //Toast类型
-    @ToastType
-    private var toastType: Int =  ToastType.NORMAL
+    enum class ToastType { NORMAL, SUCCESS, INFO, WARNING, ERROR }
+    private var toastType: ToastType =  ToastType.NORMAL
     //背景颜色
     @ColorInt
     private var bgColor: Int? = null
@@ -88,7 +92,7 @@ class ToastBuilder(private val context: Context) {
     //显示时间
     private var duration: Int = Toast.LENGTH_SHORT
 
-    fun setToastType(@ToastType toastType: Int): ToastBuilder {
+    fun setToastType(toastType: ToastType): ToastBuilder {
         this.toastType = toastType
         return this
     }
@@ -175,7 +179,7 @@ class ToastBuilder(private val context: Context) {
         }
 
         ShapeBuilder()
-            .setShapeType(ShapeType.SHAPE_TYPE_RECTANGLE)
+            .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
             .setShapeCornersRadius(radius)
             .setShapeSolidColor(bgColor!!)
             .into(contentView)

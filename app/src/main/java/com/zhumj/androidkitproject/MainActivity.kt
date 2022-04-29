@@ -15,13 +15,11 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import com.zhumj.androidkit.base.BaseActivity
 import com.zhumj.androidkit.builder.ToastBuilder
-import com.zhumj.androidkit.builder.ToastType
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
 import com.zhumj.androidkitproject.mvp.contract.MainContract
 import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
-
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
@@ -157,7 +155,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     override fun queryDatesSuccess(dates: List<Int>) {
         ToastBuilder(this)
             .setMessage("数据获取成功")
-            .setToastType(ToastType.SUCCESS)
+            .setToastType(ToastBuilder.ToastType.SUCCESS)
             .create()
             .show()
     }
@@ -168,7 +166,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     override fun queryDatesFailure(errCode: Int, errMsg: String) {
         ToastBuilder(this)
             .setMessage("数据获取失败")
-            .setToastType(ToastType.ERROR)
+            .setToastType(ToastBuilder.ToastType.ERROR)
             .create()
             .show()
     }
