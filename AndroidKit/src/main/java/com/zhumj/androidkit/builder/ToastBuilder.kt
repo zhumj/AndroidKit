@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.annotation.IntDef
 import com.zhumj.androidkit.R
 
 /*
@@ -35,9 +34,8 @@ annotation class ToastType {
  * @date 2022/4/23 16:59
  * @description : 文件描述
  */
+@Deprecated(message = "Android 11（API 30）之后 Toast.setView() 不能自定义了")
 class ToastBuilder(private val context: Context) {
-
-
 
     //Toast类型
     enum class ToastType { NORMAL, SUCCESS, INFO, WARNING, ERROR }
