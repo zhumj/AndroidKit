@@ -331,7 +331,8 @@ showToast：显示 Toast 样式的 SnackBar，调用这个方法前最好是先�
 ```
 SnackBarExt.make(view, "SnackBar Test", Snackbar.LENGTH_SHORT)
     .showToast(
-        toastType = SnackBarExt.ToastType.SUCCESS
+        toastType = SnackBarExt.ToastType.SUCCESS,
+        gravity = Gravity.CENTER// 自定义位置：居中显示
     )
 ```
 

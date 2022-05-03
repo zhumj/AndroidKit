@@ -2,9 +2,11 @@ package com.zhumj.androidkit.extend
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -48,6 +50,7 @@ object SnackBarExt {
      * @param iconWidth Icon 宽度
      * @param iconHeight Icon 高度
      * @param radius 倒角半径
+     * @param gravity 显示位置，默认 Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
      * @param actionText Action 文字，默认 “DISMISS”
      * @param actionTextColor Action 文字颜色
      * @param actionTextSize Action 文字大小
@@ -63,6 +66,7 @@ object SnackBarExt {
         iconWidth: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
         iconHeight: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
         radius: Float = context.resources.getDimension(R.dimen.dp_6),
+        gravity: Int = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,
         actionText: String = "DISMISS",
         actionTextColor: Int = textColor,
         actionTextSize: Float = textSize,
@@ -104,6 +108,8 @@ object SnackBarExt {
                 .setShapeSolidColor(mBgColor)
                 .into(this)
         }
+        // 修改显示位置
+        (view.layoutParams as FrameLayout.LayoutParams).gravity = gravity
         // 先显示，后面的自定义 View 才会生效
         show()
         // 创建并添加自定义 View

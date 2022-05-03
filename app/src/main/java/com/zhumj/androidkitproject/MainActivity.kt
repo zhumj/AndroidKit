@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.location.Address
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -72,7 +73,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             if (view is  Button) {
                 SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_SHORT)
                     .showToast(
-                        toastType = SnackBarExt.ToastType.ERROR
+                        toastType = SnackBarExt.ToastType.ERROR,
+                        gravity = Gravity.CENTER
                     )
             }
         }
