@@ -15,8 +15,9 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import com.zhumj.androidkit.base.BaseActivity
-import com.zhumj.androidkit.builder.SnackBarBuilder
 import com.zhumj.androidkit.builder.ToastBuilder
+import com.zhumj.androidkit.extend.SnackBarExt
+import com.zhumj.androidkit.extend.SnackBarExt.showToast
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
@@ -56,23 +57,25 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     private val onPreMultiClickListener = object : OnPreMultiClickListener(2000) {
         override fun onValidClick(view: View) {
             if (view is  Button) {
-                SnackBarBuilder.getInstance(this@MainActivity)
-                    .setToastType(SnackBarBuilder.ToastType.SUCCESS)
-                    .setMessage(view.text.toString() + "点击有效")
-                    .showToast(view)
+                SnackBarExt.make(binding.clLayout, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
+                    .showToast(
+                        toastType = SnackBarExt.ToastType.SUCCESS
+                    )
             }
             checkLocationPermission()
         }
 
         override fun onInvalidClick(view: View) {
             if (view is  Button) {
-                SnackBarBuilder.getInstance(this@MainActivity)
-                    .setToastType(SnackBarBuilder.ToastType.ERROR)
-                    .setDuration(Snackbar.LENGTH_INDEFINITE)
-                    .setMessage(view.text.toString() + "点击无效")
-                    .showToast(view, SnackBarBuilder.ActionConfig {
-                        SnackBarBuilder.getInstance(this@MainActivity).dismissSnackBar()
-                    })
+                SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_INDEFINITE)
+                    .showToast(
+                        toastType = SnackBarExt.ToastType.ERROR,
+                        onActionListener = object : SnackBarExt.OnActionClickListener {
+                            override fun onActionClick(snackBar: Snackbar) {
+                                snackBar.dismiss()
+                            }
+                        }
+                    )
             }
         }
     }
@@ -84,7 +87,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         if (EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
             getLocation()
         } else {
-            EasyPermissions.requestPermissions(this, "", 10086,
+            EasyPermissions.requestPermissions(
+                this, "", 10086,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
             )

@@ -290,7 +290,7 @@ into(view: View)：对 view 启用以上设置
 ###### ToastBuilder
 
 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
-**@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarBuilder 代替")**
+**@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替")**
 
 ```
 setToastType：设置类型，可看 ToastType
@@ -307,47 +307,6 @@ setGravity：设置显示位置
 setDuration：设置显示时间
 
 create()：启用以上设置并生成Toast
-```
-
-###### SnackBarBuilder
-
-SnackBar 构造器，单例模式，在 ToastBuilder 被 @Deprecated 标记后的替代品，用法和 ToastBuilder 差不多
-
-```
-setToastType：设置类型，可看 ToastType
-    enum class ToastType { NORMAL, SUCCESS, INFO, WARNING, ERROR }
-setBgColor：设置背景颜色
-setMessage：设置文本
-setTextColor：设置文本颜色
-setTextSize：设置文字大小
-setIconId：设置图标资源ID
-setIconWidth：设置图标宽度
-setIconHeight：设置图标高度
-setRadius：设置四角倒圆角半径
-setDuration：设置显示时间
-
-data class ActionConfig(
-    val actionText: String = "DISMISS",
-    val actionTextColor: Int? = null,
-    val actionTextSize: Float? = null,
-    val listener: View.OnClickListener? = null
-)：SnackBar 按钮的一些配置，listener 跟 duration = Snackbar.LENGTH_INDEFINITE 配合决定按钮显不显示
-
-showSnackBar：显示系统纯正的 SnackBar
-showToast：显示自定义了 View 的 Toast 样式的 SnackBar
-dismissSnackBar：取消SnackBar显示
-```
-
-使用
-
-```
-SnackBarBuilder.getInstance(this@MainActivity)
-    .setToastType(SnackBarBuilder.ToastType.INFO)
-    .setDuration(Snackbar.LENGTH_INDEFINITE)
-    .setMessage("显示Toast")
-    .showToast(view, SnackBarBuilder.ActionConfig {
-        SnackBarBuilder.getInstance(this@MainActivity).dismissSnackBar()
-    })
 ```
 
 #### eventbus
@@ -368,6 +327,26 @@ removeAllSticky：移除全部粘性事件
 ###### EventMessage
 
 EventBus 数据实体
+
+#### extend
+
+###### SnackBarExt
+
+SnackBar 扩展，新增显示 Toast 样式的 SnackBar 的方法
+
+```
+make：创建 SnackBar
+showToast：显示 Toast 样式的 SnackBar，调用这个方法前最好是先调用 SnackBarExt 下面的 make 方法，因为正常的 SnackBar.make() 方法会有警告，强迫症者慎用
+```
+
+使用
+
+```
+SnackBarExt.make(binding.clLayout, "SnackBar Test", Snackbar.LENGTH_SHORT)
+    .showToast(
+        toastType = SnackBarExt.ToastType.SUCCESS
+    )
+```
 
 #### premulticlick
 
@@ -761,5 +740,5 @@ setEditable：设置 EditText 是否可编辑
 #### v1.0.3（未发布）
 
 1.  新增剪切板相关工具类: ClipboardUtil
-2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了
-3.  新增 SnackBar 构造器: SnackBarBuilder，替代 ToastBuilder
+2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
+3.  新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法

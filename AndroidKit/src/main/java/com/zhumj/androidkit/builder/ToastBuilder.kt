@@ -35,7 +35,7 @@ annotation class ToastType {
  * @date 2022/4/23 16:59
  * @description : 吐司构造器
  */
-@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarBuilder 代替")
+@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替")
 class ToastBuilder(private val context: Context) {
 
     //Toast类型
