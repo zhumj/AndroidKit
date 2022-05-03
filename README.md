@@ -243,14 +243,7 @@ shape构造器，使用这个可以直接代码设置 shape 和 selector
 
 ```
 setShapeType：设置 Shape 样式
-    annotation class ShapeType {
-        companion object {
-            const val SHAPE_TYPE_RECTANGLE = 0
-            const val SHAPE_TYPE_OVAL = 1
-            const val SHAPE_TYPE_LINE = 2
-            const val SHAPE_TYPE_RING = 3
-        }
-    }
+    enum class ShapeType { RECTANGLE, OVAL, LINE, RING }
 setShapeSolidColor：设置底色
 setShapeCornersRadius：设置四角倒圆角半径
 setShapeCornersTopLeftRadius：设置左上角倒圆角半径
@@ -275,13 +268,7 @@ setShapeGradientStartColor：设置渐变开始颜色
 setShapeGradientCenterColor：设置渐变中心颜色
 setShapeGradientEndColor：设置渐变结束颜色
 setShapeGradientType：设置渐变样式
-    annotation class GradientType {
-        companion object {
-            const val GRADIENT_TYPE_LINEAR = 0
-            const val GRADIENT_TYPE_RADIAL = 1
-            const val GRADIENT_TYPE_SWEEP = 2
-        }
-    }
+    enum class GradientType { LINEAR, RADIAL, SWEEP }
 setShapeGradientUseLevel：设置渐变等级
 
 into(view: View)：对 view 启用以上设置
