@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.setPadding
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -109,7 +110,12 @@ object SnackBarExt {
                 .into(this)
         }
         // 修改显示位置
-        (view.layoutParams as FrameLayout.LayoutParams).gravity = gravity
+        val layoutParams = view.layoutParams
+        if (layoutParams is CoordinatorLayout.LayoutParams) {
+            layoutParams.gravity = gravity
+        } else {
+            (layoutParams as FrameLayout.LayoutParams).gravity = gravity
+        }
         // 先显示，后面的自定义 View 才会生效
         show()
         // 创建并添加自定义 View

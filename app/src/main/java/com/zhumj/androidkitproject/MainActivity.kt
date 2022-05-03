@@ -63,7 +63,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             if (view is  Button) {
                 SnackBarExt.make(view, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
                     .showToast(
-                        toastType = SnackBarExt.ToastType.SUCCESS
+                        toastType = SnackBarExt.ToastType.SUCCESS,
+                        gravity = Gravity.CENTER
                     )
             }
             checkLocationPermission()
