@@ -757,3 +757,9 @@ setEditable：设置 EditText 是否可编辑
 7.  EventBusUtil: 新增 移除指定粘性事件 和 移除所有粘性事件 方法 
 8.  ValidatorUtil: 更新 密码验证 正则表达式
 9.  新增google 开源手机号码相关库：libphonenumber:8.12.47
+
+#### v1.0.3
+
+1.  新增剪切板相关工具类: ClipboardUtil
+2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了
+3.  新增 SnackBar 构造器: SnackBarBuilder，替代 ToastBuilder
