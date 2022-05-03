@@ -26,7 +26,10 @@ import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
-    private val TAG = "111111111111111"
+    companion object {
+        private const val TAG = "111111111111111"
+        private const val REQUEST_CODE_PERMISSION_LOCATION = 10086
+    }
 
     private lateinit var locationUtil: LocationUtil
 
@@ -57,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     private val onPreMultiClickListener = object : OnPreMultiClickListener(2000) {
         override fun onValidClick(view: View) {
             if (view is  Button) {
-                SnackBarExt.make(binding.clLayout, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
+                SnackBarExt.make(view, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
                     .showToast(
                         toastType = SnackBarExt.ToastType.SUCCESS
                     )
@@ -69,12 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             if (view is  Button) {
                 SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_INDEFINITE)
                     .showToast(
-                        toastType = SnackBarExt.ToastType.ERROR,
-                        onActionListener = object : SnackBarExt.OnActionClickListener {
-                            override fun onActionClick(snackBar: Snackbar) {
-                                snackBar.dismiss()
-                            }
-                        }
+                        toastType = SnackBarExt.ToastType.ERROR
                     )
             }
         }
@@ -88,7 +86,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             getLocation()
         } else {
             EasyPermissions.requestPermissions(
-                this, "", 10086,
+                this, "", REQUEST_CODE_PERMISSION_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
             )
@@ -98,9 +96,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     /**
      * 获取位置并且检查手机号码是否合法
      */
-    @AfterPermissionGranted(10086)
+    @AfterPermissionGranted(REQUEST_CODE_PERMISSION_LOCATION)
     @SuppressLint("MissingPermission")
     private fun getLocation() {
+        binding.tvText.text = "正在定位..."
         locationUtil.getAddress(lifecycleScope, object : LocationUtil.OnGetLocationListener {
             // 位置信息开关处于禁用状态
             override fun isLocationDisable() {
@@ -112,10 +111,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
                     .setPositiveButton("设置") { _, _ -> LocationUtil.gotoLocationSettings(this@MainActivity) }
                     .create()
                     .show()
+                binding.tvText.text = "“位置信息”未开启"
             }
 
             override fun onAddressCallBack(address: Address?) {
-                validPhone(address)
+                val s = "${address?.countryName ?: "null"}, ${address?.countryCode ?: "null"}"
+                Log.d(TAG, s)
+                binding.tvText.text = s
+                validPhone(address?.countryCode)
             }
         })
 
@@ -149,9 +152,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     /**
      * 验证手机号合法性
      */
-    private fun validPhone(address: Address?) {
-        Log.d(TAG, "${address?.countryName ?: "null"}, ${address?.countryCode ?: "null"}")
-        val countryCode = address?.countryCode
+    private fun validPhone(countryCode: String?) {
         if (!countryCode.isNullOrBlank()) {
             try {
                 val phoneNumberUtil = PhoneNumberUtil.getInstance()

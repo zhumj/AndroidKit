@@ -342,7 +342,7 @@ showToast：显示 Toast 样式的 SnackBar，调用这个方法前最好是先�
 使用
 
 ```
-SnackBarExt.make(binding.clLayout, "SnackBar Test", Snackbar.LENGTH_SHORT)
+SnackBarExt.make(view, "SnackBar Test", Snackbar.LENGTH_SHORT)
     .showToast(
         toastType = SnackBarExt.ToastType.SUCCESS
     )
