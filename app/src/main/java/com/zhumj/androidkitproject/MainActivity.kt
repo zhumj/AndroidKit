@@ -70,7 +70,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
 
         override fun onInvalidClick(view: View) {
             if (view is  Button) {
-                SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_INDEFINITE)
+                SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_SHORT)
                     .showToast(
                         toastType = SnackBarExt.ToastType.ERROR
                     )
