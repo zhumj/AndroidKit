@@ -648,9 +648,12 @@ setEditable：设置 EditText 是否可编辑
         var dates: List<Int> = ArrayList()
     
         override fun queryDates() {
-            dates = model.queryDates()
-            // view?.queryDatesSuccess(dates)
-            // view?.queryDatesFailure(-1, "数据获取失败")
+            dates = model.queryDates().also {
+            if (it.isEmpty()) {
+                view?.queryDatesFailure(-1, "数据获取失败")
+            } else {
+                view?.queryDatesSuccess(dates)
+            }
         }
     
     }
@@ -711,8 +714,6 @@ setEditable：设置 EditText 是否可编辑
 
 #### v1.0.1
 
-略略略
-
 #### v1.0.2
 
 1.  新增 Kotlin 单例辅助类: SingletonHolder
@@ -730,3 +731,4 @@ setEditable：设置 EditText 是否可编辑
 1.  新增剪切板相关工具类: ClipboardUtil
 2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
 3.  新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法
+4.  升级第三方库 Coil 到 2.0.0-rc03 版本
