@@ -13,9 +13,13 @@ class MainPresenter(view: MainContract.View): BasePresenter<MainContract.View>(v
     var dates: List<Int> = ArrayList()
 
     override fun queryDates() {
-        dates = model.queryDates()
-//        view?.queryDatesSuccess(dates)
-//        view?.queryDatesFailure(-1, "数据获取失败")
+        dates = model.queryDates().also {
+            if (it.isEmpty()) {
+                view?.queryDatesFailure(-1, "数据获取失败")
+            } else {
+                view?.queryDatesSuccess(dates)
+            }
+        }
     }
 
 }

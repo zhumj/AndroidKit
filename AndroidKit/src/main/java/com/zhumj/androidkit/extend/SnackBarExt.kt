@@ -43,12 +43,12 @@ object SnackBarExt {
     }
 
     /**
-     * 显示 Toast 样式的 SnackBar：系统 View
+     * 显示 Toast 样式的 SnackBar
+     * @param toastType Toast 样式
      * @param textColor 文本颜色
      * @param textSize 文本大小
      * @param compoundDrawablePadding 文本离左边 Icon 的距离
      * @param bgColor 背景色
-     * @param toastType Toast 样式
      * @param iconId Icon Id
      * @param iconWidth Icon 宽度
      * @param iconHeight Icon 高度
@@ -57,11 +57,11 @@ object SnackBarExt {
      */
     @SuppressLint("InflateParams")
     fun Snackbar.showToast(
+        toastType: ToastType = ToastType.NORMAL,
         @ColorInt textColor: Int? = null,
         textSize: Float? = null,
         compoundDrawablePadding: Float = context.resources.getDimension(R.dimen.px_16),
         @ColorInt bgColor: Int? = null,
-        toastType: ToastType = ToastType.NORMAL,
         @DrawableRes iconId: Int? = null,
         iconWidth: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
         iconHeight: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
@@ -69,22 +69,6 @@ object SnackBarExt {
         gravity: Int = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,
         actionTextSize: Float? = null,
     ) {
-        // 背景颜色
-        val mBgColor = bgColor ?: when(toastType) {
-            ToastType.SUCCESS -> { Color.parseColor("#388E3C") }
-            ToastType.INFO -> { Color.parseColor("#3F51B5") }
-            ToastType.WARNING -> { Color.parseColor("#FFA900") }
-            ToastType.ERROR -> { Color.parseColor("#D50000") }
-            else -> { Color.parseColor("#353A3E") }
-        }
-        // Icon Id
-        val mIconId = iconId ?: when (toastType) {
-            ToastType.SUCCESS -> R.drawable.ic_success
-            ToastType.INFO -> R.drawable.ic_info
-            ToastType.WARNING -> R.drawable.ic_warning
-            ToastType.ERROR -> R.drawable.ic_error
-            else -> null
-        }
         // 设置 Behavior 为不可以侧滑消除
         behavior = object : BaseTransientBottomBar.Behavior() {
             override fun canSwipeDismissView(child: View): Boolean {
@@ -99,7 +83,7 @@ object SnackBarExt {
             ShapeBuilder()
                 .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
                 .setShapeCornersRadius(radius)
-                .setShapeSolidColor(mBgColor)
+                .setShapeSolidColor(getBgColor(bgColor, toastType))
                 .into(it)
 
             // 修改显示位置
@@ -122,6 +106,7 @@ object SnackBarExt {
                 }
 
                 // 设置左边 Icon
+                val mIconId = getIconId(iconId, toastType)
                 if (mIconId != null) {
                     val d = ContextCompat.getDrawable(context, mIconId)
                     d?.setBounds(0, 0, iconWidth, iconHeight)
@@ -144,10 +129,10 @@ object SnackBarExt {
 
     /**
      * 显示 Toast 样式的 SnackBar：自定义View
+     * @param toastType Toast 样式
      * @param textColor 文本颜色
      * @param textSize 文本大小
      * @param bgColor 背景色
-     * @param toastType Toast 样式
      * @param iconId Icon Id
      * @param iconWidth Icon 宽度
      * @param iconHeight Icon 高度
@@ -160,10 +145,10 @@ object SnackBarExt {
      */
     @SuppressLint("InflateParams")
     fun Snackbar.showToast2(
+        toastType: ToastType = ToastType.NORMAL,
         @ColorInt textColor: Int? = null,
         textSize: Float? = null,
         @ColorInt bgColor: Int? = null,
-        toastType: ToastType = ToastType.NORMAL,
         @DrawableRes iconId: Int? = null,
         iconWidth: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
         iconHeight: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
@@ -174,22 +159,6 @@ object SnackBarExt {
         actionTextSize: Float? = null,
         onActionListener: OnActionClickListener? = null,
     ) {
-        // 背景颜色
-        val mBgColor = bgColor ?: when(toastType) {
-            ToastType.SUCCESS -> { Color.parseColor("#388E3C") }
-            ToastType.INFO -> { Color.parseColor("#3F51B5") }
-            ToastType.WARNING -> { Color.parseColor("#FFA900") }
-            ToastType.ERROR -> { Color.parseColor("#D50000") }
-            else -> { Color.parseColor("#353A3E") }
-        }
-        // Icon Id
-        val mIconId = iconId ?: when (toastType) {
-            ToastType.SUCCESS -> R.drawable.ic_success
-            ToastType.INFO -> R.drawable.ic_info
-            ToastType.WARNING -> R.drawable.ic_warning
-            ToastType.ERROR -> R.drawable.ic_error
-            else -> null
-        }
         // 把设置文本取出来，等下要设置到自己的 View 中
         val textView: TextView = view.findViewById(com.google.android.material.R.id.snackbar_text)
         val text = textView.text
@@ -207,7 +176,7 @@ object SnackBarExt {
             ShapeBuilder()
                 .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
                 .setShapeCornersRadius(radius)
-                .setShapeSolidColor(mBgColor)
+                .setShapeSolidColor(getBgColor(bgColor, toastType))
                 .into(this)
 
             // 修改显示位置
@@ -232,6 +201,8 @@ object SnackBarExt {
                 this.findViewById<ImageView>(R.id.ivToast).also {
                     it.layoutParams.width = iconWidth
                     it.layoutParams.height = iconHeight
+                    // Icon Id
+                    val mIconId = getIconId(iconId, toastType)
                     if (mIconId != null) {
                         it.visibility = View.VISIBLE
                         it.setImageResource(mIconId)
@@ -269,6 +240,30 @@ object SnackBarExt {
                     }
                 }
             })
+        }
+    }
+
+    @ColorInt
+    private fun getBgColor(@ColorInt bgColor: Int?, toastType: ToastType): Int {
+        // 背景颜色
+        return bgColor ?: when(toastType) {
+            ToastType.SUCCESS -> { Color.parseColor("#388E3C") }
+            ToastType.INFO -> { Color.parseColor("#3F51B5") }
+            ToastType.WARNING -> { Color.parseColor("#FFA900") }
+            ToastType.ERROR -> { Color.parseColor("#D50000") }
+            else -> { Color.parseColor("#353A3E") }
+        }
+    }
+
+    @DrawableRes
+    private fun getIconId(@DrawableRes iconId: Int?, toastType: ToastType): Int? {
+        // 背景颜色
+        return iconId ?: when (toastType) {
+            ToastType.SUCCESS -> R.drawable.ic_success
+            ToastType.INFO -> R.drawable.ic_info
+            ToastType.WARNING -> R.drawable.ic_warning
+            ToastType.ERROR -> R.drawable.ic_error
+            else -> null
         }
     }
 

@@ -703,7 +703,7 @@ setEditable：设置 EditText 是否可编辑
     
 4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
 
-5.  图片加载：[Coil:1.4.0](https://coil-kt.github.io/coil/)
+5.  图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
 
 6.  google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
 
