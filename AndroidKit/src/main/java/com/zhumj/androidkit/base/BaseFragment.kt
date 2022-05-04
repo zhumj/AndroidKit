@@ -18,12 +18,12 @@ import org.greenrobot.eventbus.ThreadMode
  * @date 2022/4/23
  * @description Fragment 基类
  */
-abstract class BaseFragment<T : ViewBinding, P: BasePresenter<*>?>: Fragment() {
+abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment() {
 
-    private lateinit var _binding: T
+    private lateinit var _binding: VB
 
     protected val binding get() = _binding
-    protected var presenter: P? = null
+    protected var presenter: BP? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +45,8 @@ abstract class BaseFragment<T : ViewBinding, P: BasePresenter<*>?>: Fragment() {
         return _binding.root
     }
 
-    protected abstract fun getViewBinding(): T
-    protected abstract fun obtainPresenter(): P?
+    protected abstract fun getViewBinding(): VB
+    protected abstract fun obtainPresenter(): BP?
 
     /**
      * 是否注册事件分发

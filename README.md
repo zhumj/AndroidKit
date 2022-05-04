@@ -336,6 +336,16 @@ SnackBarExt.make(view, "SnackBar Test", Snackbar.LENGTH_SHORT)
     )
 ```
 
+#### holder
+
+###### BaseViewHolder
+
+ViewHolder 基类
+
+###### BaseViewBindingHolder
+
+继承 BaseViewHolder，方便 ViewBinding 使用
+
 #### premulticlick
 
 ###### OnPreMultiClickListener
@@ -732,3 +742,4 @@ setEditable：设置 EditText 是否可编辑
 2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
 3.  新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法
 4.  升级第三方库 Coil 到 2.0.0-rc03 版本
+5.  新增 ViewHolder 基类 BaseViewHolder 和 继承于 BaseViewHolder 的方便 ViewBinding 使用的 BaseViewBindingHolder

@@ -15,12 +15,12 @@ import org.greenrobot.eventbus.ThreadMode
  * @date 2022/4/23
  * @description AppCompatActivity 基类
  */
-abstract class BaseActivity<T : ViewBinding, P: BasePresenter<*>?>: AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatActivity() {
 
-    private lateinit var _binding: T
+    private lateinit var _binding: VB
 
     protected val binding get() = _binding
-    protected var presenter: P? = null
+    protected var presenter: BP? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +59,8 @@ abstract class BaseActivity<T : ViewBinding, P: BasePresenter<*>?>: AppCompatAct
         supportActionBar?.setDisplayHomeAsUpEnabled(isShowBack)
     }
 
-    protected abstract fun getViewBinding(): T
-    protected abstract fun obtainPresenter(): P?
+    protected abstract fun getViewBinding(): VB
+    protected abstract fun obtainPresenter(): BP?
 
     /**
      * 是否注册事件分发
