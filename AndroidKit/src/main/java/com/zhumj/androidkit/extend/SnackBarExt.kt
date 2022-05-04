@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +43,107 @@ object SnackBarExt {
     }
 
     /**
-     * 显示 Toast 样式的 SnackBar
+     * 显示 Toast 样式的 SnackBar：系统 View
+     * @param textColor 文本颜色
+     * @param textSize 文本大小
+     * @param compoundDrawablePadding 文本离左边 Icon 的距离
+     * @param bgColor 背景色
+     * @param toastType Toast 样式
+     * @param iconId Icon Id
+     * @param iconWidth Icon 宽度
+     * @param iconHeight Icon 高度
+     * @param radius 倒角半径
+     * @param gravity 显示位置，默认 Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+     */
+    @SuppressLint("InflateParams")
+    fun Snackbar.showToast(
+        @ColorInt textColor: Int? = null,
+        textSize: Float? = null,
+        compoundDrawablePadding: Float = context.resources.getDimension(R.dimen.px_16),
+        @ColorInt bgColor: Int? = null,
+        toastType: ToastType = ToastType.NORMAL,
+        @DrawableRes iconId: Int? = null,
+        iconWidth: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
+        iconHeight: Int = context.resources.getDimensionPixelSize(R.dimen.dp_24),
+        radius: Float = context.resources.getDimension(R.dimen.dp_6),
+        gravity: Int = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,
+        actionTextSize: Float? = null,
+    ) {
+        // 背景颜色
+        val mBgColor = bgColor ?: when(toastType) {
+            ToastType.SUCCESS -> { Color.parseColor("#388E3C") }
+            ToastType.INFO -> { Color.parseColor("#3F51B5") }
+            ToastType.WARNING -> { Color.parseColor("#FFA900") }
+            ToastType.ERROR -> { Color.parseColor("#D50000") }
+            else -> { Color.parseColor("#353A3E") }
+        }
+        // Icon Id
+        val mIconId = iconId ?: when (toastType) {
+            ToastType.SUCCESS -> R.drawable.ic_success
+            ToastType.INFO -> R.drawable.ic_info
+            ToastType.WARNING -> R.drawable.ic_warning
+            ToastType.ERROR -> R.drawable.ic_error
+            else -> null
+        }
+        // 设置 Behavior 为不可以侧滑消除
+        behavior = object : BaseTransientBottomBar.Behavior() {
+            override fun canSwipeDismissView(child: View): Boolean {
+                return false
+            }
+        }
+        // 自定义
+        view.also {
+            // 修改背景
+            it.minimumWidth = 0
+            it.minimumHeight = 0
+            ShapeBuilder()
+                .setShapeType(ShapeBuilder.ShapeType.RECTANGLE)
+                .setShapeCornersRadius(radius)
+                .setShapeSolidColor(mBgColor)
+                .into(it)
+
+            // 修改显示位置
+            val layoutParams = it.layoutParams
+            if (layoutParams is CoordinatorLayout.LayoutParams) {
+                layoutParams.gravity = gravity
+            } else {
+                (layoutParams as FrameLayout.LayoutParams).gravity = gravity
+            }
+
+            // 设置文本颜色、文本大小、左边 Icon
+            it.findViewById<TextView?>(com.google.android.material.R.id.snackbar_text)?.also { tv: TextView? ->
+                tv?.gravity = Gravity.CENTER_VERTICAL
+                // 设置文本颜色、文本大小
+                if (textSize != null) {
+                    tv?.textSize = textSize
+                }
+                if (textColor != null) {
+                    tv?.setTextColor(textColor)
+                }
+
+                // 设置左边 Icon
+                if (mIconId != null) {
+                    val d = ContextCompat.getDrawable(context, mIconId)
+                    d?.setBounds(0, 0, iconWidth, iconHeight)
+                    tv?.setCompoundDrawables(d, null, null, null)
+                    tv?.compoundDrawablePadding = compoundDrawablePadding.toInt()
+                }
+            }
+
+            // 设置右边 Action
+            it.findViewById<Button?>(com.google.android.material.R.id.snackbar_action)?.also { btn: Button? ->
+                if (actionTextSize != null) {
+                    btn?.textSize = actionTextSize
+                }
+            }
+        }
+
+        // 显示
+        show()
+    }
+
+    /**
+     * 显示 Toast 样式的 SnackBar：自定义View
      * @param textColor 文本颜色
      * @param textSize 文本大小
      * @param bgColor 背景色
@@ -58,9 +159,9 @@ object SnackBarExt {
      * @param onActionListener Action 点击事件，当 duration == LENGTH_INDEFINITE && onActionListener != null 时，Action 才显示
      */
     @SuppressLint("InflateParams")
-    fun Snackbar.showToast(
-        @ColorInt textColor: Int = Color.parseColor("#FFFFFF"),
-        textSize: Float = context.resources.getDimension(R.dimen.px_16),
+    fun Snackbar.showToast2(
+        @ColorInt textColor: Int? = null,
+        textSize: Float? = null,
         @ColorInt bgColor: Int? = null,
         toastType: ToastType = ToastType.NORMAL,
         @DrawableRes iconId: Int? = null,
@@ -69,8 +170,8 @@ object SnackBarExt {
         radius: Float = context.resources.getDimension(R.dimen.dp_6),
         gravity: Int = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,
         actionText: String = "DISMISS",
-        actionTextColor: Int = textColor,
-        actionTextSize: Float = textSize,
+        actionTextColor: Int? = null,
+        actionTextSize: Float? = null,
         onActionListener: OnActionClickListener? = null,
     ) {
         // 背景颜色
@@ -98,7 +199,7 @@ object SnackBarExt {
                 return false
             }
         }
-        // 修改背景
+        // 修改背景、显示位置
         view.apply {
             this.minimumWidth = 0
             this.minimumHeight = 0
@@ -108,13 +209,14 @@ object SnackBarExt {
                 .setShapeCornersRadius(radius)
                 .setShapeSolidColor(mBgColor)
                 .into(this)
-        }
-        // 修改显示位置
-        val layoutParams = view.layoutParams
-        if (layoutParams is CoordinatorLayout.LayoutParams) {
-            layoutParams.gravity = gravity
-        } else {
-            (layoutParams as FrameLayout.LayoutParams).gravity = gravity
+
+            // 修改显示位置
+            val layoutParams = this.layoutParams
+            if (layoutParams is CoordinatorLayout.LayoutParams) {
+                layoutParams.gravity = gravity
+            } else {
+                (layoutParams as FrameLayout.LayoutParams).gravity = gravity
+            }
         }
         // 先显示，后面的自定义 View 才会生效
         show()
@@ -139,8 +241,12 @@ object SnackBarExt {
                 }
                 // 自定义中间文本
                 this.findViewById<TextView>(R.id.tvToast).also {
-                    it.setTextColor(textColor)
-                    it.textSize = textSize
+                    if (textColor != null) {
+                        it.setTextColor(textColor)
+                    }
+                    if (textSize != null) {
+                        it.textSize = textSize
+                    }
                     it.text = text
                 }
                 // 自定义右边 Action
@@ -148,10 +254,14 @@ object SnackBarExt {
                     if (duration == Snackbar.LENGTH_INDEFINITE && onActionListener != null) {
                         it.visibility = View.VISIBLE
                         it.text = actionText
-                        it.textSize = actionTextSize
-                        it.setTextColor(actionTextColor)
+                        if (actionTextSize != null) {
+                            it.textSize = actionTextSize
+                        }
+                        if (actionTextColor != null) {
+                            it.setTextColor(actionTextColor)
+                        }
                         it.setOnClickListener{
-                            onActionListener.onActionClick(this@showToast)
+                            onActionListener.onActionClick(this@showToast2)
                         }
                     } else {
                         it.visibility = View.GONE

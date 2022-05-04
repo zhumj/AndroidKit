@@ -19,6 +19,7 @@ import com.zhumj.androidkit.base.BaseActivity
 import com.zhumj.androidkit.builder.ToastBuilder
 import com.zhumj.androidkit.extend.SnackBarExt
 import com.zhumj.androidkit.extend.SnackBarExt.showToast
+import com.zhumj.androidkit.extend.SnackBarExt.showToast2
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
@@ -64,7 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
                 SnackBarExt.make(view, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
                     .showToast(
                         toastType = SnackBarExt.ToastType.SUCCESS,
-                        gravity = Gravity.CENTER
+                        gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
                     )
             }
             checkLocationPermission()
@@ -72,7 +73,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
 
         override fun onInvalidClick(view: View) {
             if (view is  Button) {
-                SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_SHORT)
+                SnackBarExt.make(view, "${view.text} 点击无效", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("DISMISS") { }
                     .showToast(
                         toastType = SnackBarExt.ToastType.ERROR,
                         gravity = Gravity.CENTER
