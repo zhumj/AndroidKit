@@ -719,6 +719,8 @@ setEditable：设置 EditText 是否可编辑
 5.  图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
 
 6.  google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
+    
+7.  下拉刷新、上拉加载库：[SmartRefreshLayout:2.0.5](https://github.com/scwang90/SmartRefreshLayout)
 
 ## 版本
 
@@ -743,3 +745,4 @@ setEditable：设置 EditText 是否可编辑
 3.  新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法
 4.  升级第三方库 Coil 到 2.0.0-rc03 版本
 5.  新增 ViewHolder 基类 BaseViewHolder 和 继承于 BaseViewHolder 的方便 ViewBinding 使用的 BaseViewBindingHolder
+6.  新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
