@@ -19,7 +19,6 @@ import com.zhumj.androidkit.base.BaseActivity
 import com.zhumj.androidkit.builder.ToastBuilder
 import com.zhumj.androidkit.extend.SnackBarExt
 import com.zhumj.androidkit.extend.SnackBarExt.showToast
-import com.zhumj.androidkit.extend.SnackBarExt.showToast2
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding

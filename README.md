@@ -604,6 +604,37 @@ setEditable：设置 EditText 是否可编辑
 
 自定义GridLayout，结合 GridLayout + RadioGroup 功能
 
+###### ZAlertDialog
+
+自定义AlertDialog，统一Dialog风格
+
+```
+setZAlertDialogBackgroundColor：设置背景色
+setZAlertDialogContentView：设置内容
+setZAlertDialogMessage：设置默认内容文本
+setZAlertDialogMessageSize：设置默认内容文本大小
+setZAlertDialogMessageColor：设置默认内容文本颜色
+setZAlertDialogMessageGravity：设置默认内容文本位置
+setZAlertDialogTitleVisibility：设置是否显示标题
+setZAlertDialogTitle：设置标题文本
+setZAlertDialogTitleTextSize：设置标题文本大小
+setZAlertDialogTitleTextColor：设置标题文本颜色
+setZAlertDialogTitleTextGravity：设置标题文本位置
+setZAlertDialogButtonVisibility：设置是否显示底部操作按钮
+setZAlertDialogClickCancelAutoDismiss：设置是否点击取消按钮自动隐藏Dialog
+setZAlertDialogCancelButtonText：设置取消按钮文本
+setZAlertDialogCancelButtonSize：设置取消按钮文本大小
+setZAlertDialogCancelButtonColor：设置取消按钮文本颜色
+setZAlertDialogCancelButtonVisibility：设置是否显示取消按钮
+setZAlertDialogCancelButtonClickListener：设置取消按钮点击事件监听
+setZAlertDialogClickCompleteAutoDismiss：设置是否点击确认按钮自动隐藏Dialog
+setZAlertDialogCompleteButtonText：设置确认按钮文本
+setZAlertDialogCompleteButtonSize：设置确认按钮文本大小
+setZAlertDialogCompleteButtonColor：设置确认按钮文本颜色
+setZAlertDialogCompleteButtonVisibility：设置是否显示确认按钮
+setZAlertDialogCompleteButtonClickListener：设置确认按钮点击事件监听
+```
+
 #### MVP
 
 使用    
@@ -740,9 +771,10 @@ setEditable：设置 EditText 是否可编辑
 
 #### v1.0.3（未发布）
 
-1.  新增剪切板相关工具类: ClipboardUtil
-2.  ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
-3.  新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法
-4.  升级第三方库 Coil 到 2.0.0-rc03 版本
-5.  新增 ViewHolder 基类 BaseViewHolder 和 继承于 BaseViewHolder 的方便 ViewBinding 使用的 BaseViewBindingHolder
-6.  新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
+1. 新增剪切板相关工具类: ClipboardUtil
+2. ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
+3. 新增 SnackBar 扩展: SnackBarExt，自定义显示 Toast 样式的 SnackBar 的方法
+4. 升级第三方库 Coil 到 2.0.0-rc03 版本
+5. 新增 ViewHolder 基类 BaseViewHolder 和 继承于 BaseViewHolder 的方便 ViewBinding 使用的 BaseViewBindingHolder
+6. 新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
+7. 新增自定义AlertDialog: ZAlertDialog，统一Dialog风格
