@@ -21,7 +21,7 @@ ViewBinding + MVP
 
 ###### 在 Kotlin 项目上引用
 
-1.  在 settings.gradle 里面
+1. 在 settings.gradle 里面
     
     ```
     pluginManagement {
@@ -44,7 +44,7 @@ ViewBinding + MVP
     include ':AndroidKit'
     ```
     
-2.  在项目 build.gradle 里面
+2. 在项目 build.gradle 里面
     
     ```
     plugins {
@@ -59,13 +59,13 @@ ViewBinding + MVP
     }
     ```
     
-3.  在应用 build.gradle 里面
+3. 在应用 build.gradle 里面
     
     ```
     android {
         // AndroidKit 使用的 ViewBinding，应用也应使用 ViewBinding
-        buildFeatures {
-            viewBinding true
+        viewBinding {
+            enabled = true
         }
     }
     dependencies {
@@ -77,7 +77,7 @@ ViewBinding + MVP
     
 **或者**
 
-1.  在 settings.gradle 里面
+1. 在 settings.gradle 里面
 
     ```
     pluginManagement {
@@ -97,7 +97,7 @@ ViewBinding + MVP
     include ':app'
     ```
 
-2.  在项目 build.gradle 里面
+2. 在项目 build.gradle 里面
 
     ```
     plugins {
@@ -112,13 +112,13 @@ ViewBinding + MVP
     }
     ```
 
-3.  在应用 build.gradle 里面
+3. 在应用 build.gradle 里面
 
     ```
     android {
         // AndroidKit 使用的 ViewBinding，应用也应使用 ViewBinding
-        buildFeatures {
-            viewBinding true
+        viewBinding {
+            enabled = true
         }
     }
     dependencies {
@@ -138,7 +138,7 @@ ViewBinding + MVP
     plugins {
         ...
         // 添加 Kotlin 插件
-        id 'org.jetbrains.kotlin.android' version '1.6.20' apply false
+        id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
     }
     ```
 
