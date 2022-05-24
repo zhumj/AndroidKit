@@ -8,10 +8,10 @@
 
 ## 环境
 
-1.  Android Studio Bumblebee | 2021.1.1 Patch 1
-2.  Gradle 7.3.3
-3.  Gradle plugin 7.2.0
-4.  Kotlin 1.6.21
+1. Android Studio Chipmunk | 2021.2.1
+3. Gradle 7.3.3
+4. Gradle plugin 7.2.0
+5. Kotlin 1.6.21
 
 ## 架构
 
