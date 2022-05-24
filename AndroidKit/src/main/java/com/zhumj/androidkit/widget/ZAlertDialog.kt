@@ -103,24 +103,40 @@ class ZAlertDialog(context: Context, contentView: View? = null) : AlertDialog(co
     }
 
     /* 11111111111111111111111111111 取消按钮 11111111111111111111111111111 */
-    fun changeCancelButtonParam(obj: ((Button) -> Unit)? = null, isClickCancelAutoDismiss: Boolean = true, listener: OnZAlertDialogButtonClickListener? = null): ZAlertDialog {
-        obj?.let {
+    fun setClickCancelAutoDismiss(isClickCancelAutoDismiss: Boolean): ZAlertDialog {
+        this.isClickCancelAutoDismiss = isClickCancelAutoDismiss
+        return this;
+    }
+
+    fun setOnCancelButtonClickListener(listener: OnZAlertDialogButtonClickListener): ZAlertDialog {
+        onCancelClickListener = listener
+        return this;
+    }
+
+    fun changeCancelButtonParam(obj: (Button) -> Unit): ZAlertDialog {
+        obj.let {
             it(mViewBinding.btnCancel)
             setButtonDividingLineVisibility()
         }
-        this.isClickCancelAutoDismiss = isClickCancelAutoDismiss
-        onCancelClickListener = listener
         return this
     }
 
     /* 11111111111111111111111111111 确认按钮 11111111111111111111111111111 */
-    fun changeCompleteButtonParam(obj: ((Button) -> Unit)? = null, isClickCompleteAutoDismiss: Boolean = true, listener: OnZAlertDialogButtonClickListener? = null): ZAlertDialog {
-        obj?.let {
+    fun setClickCompleteAutoDismiss(isClickCompleteAutoDismiss: Boolean): ZAlertDialog {
+        this.isClickCompleteAutoDismiss = isClickCompleteAutoDismiss
+        return this;
+    }
+
+    fun setOnCompleteButtonClickListener(listener: OnZAlertDialogButtonClickListener): ZAlertDialog {
+        onCompleteClickListener = listener
+        return this;
+    }
+
+    fun changeCompleteButtonParam(obj: (Button) -> Unit): ZAlertDialog {
+        obj.let {
             it(mViewBinding.btnComplete)
             setButtonDividingLineVisibility()
         }
-        this.isClickCompleteAutoDismiss = isClickCompleteAutoDismiss
-        onCompleteClickListener = listener
         return this
     }
 

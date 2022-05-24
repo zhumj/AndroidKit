@@ -614,7 +614,11 @@ changeTitleViewParam：修改标题TextView参数
 changeMessageViewParam：修改默认内容文本TextView参数
 setCustomContentView：设置自定义内容，装在内容容器FrameLayout里面
 changeButtonRootViewParam：修改按钮容器参数，LinearLayout
+setClickCancelAutoDismiss：设置点击取消按钮是否 Dialog 自动消失
+setOnCancelButtonClickListener：设置取消按钮点击事件监听
 changeCancelButtonParam：修改取消按钮参数
+setClickCompleteAutoDismiss：设置点击确认按钮是否 Dialog 自动消失
+setOnCompleteButtonClickListener：设置确认按钮点击事件监听
 changeCompleteButtonParam：修改取消按钮参数
 
 interface OnZAlertDialogButtonClickListener {
@@ -765,3 +769,7 @@ interface OnZAlertDialogButtonClickListener {
 5. 新增 ViewHolder 基类 BaseViewHolder 和 继承于 BaseViewHolder 的方便 ViewBinding 使用的 BaseViewBindingHolder
 6. 新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
 7. 新增自定义AlertDialog: ZAlertDialog，旨在统一 Dialog 风格
+
+#### v1.0.4（未发布）
+
+1. 优化 ZAlertDialog 的方法
