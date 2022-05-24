@@ -756,7 +756,7 @@ interface OnZAlertDialogButtonClickListener {
 8.  ValidatorUtil: 更新 密码验证 正则表达式
 9.  新增google 开源手机号码相关库：libphonenumber:8.12.47
 
-#### v1.0.3（未发布）
+#### v1.0.3
 
 1. 新增剪切板相关工具类: ClipboardUtil
 2. ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
