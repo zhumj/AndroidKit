@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-
     api 'androidx.core:core-ktx:1.7.0'
     api 'androidx.appcompat:appcompat:1.4.0'
     api 'com.google.android.material:material:1.4.0'
@@ -66,19 +65,9 @@ dependencies {
 
 afterEvaluate {
     publishing {
-//        repositories {
-//            maven {
-//                name = 'AndroidKit'
-//                url = layout.buildDirectory.dir("repos")
-//            }
-//        }
         publications {
             release(MavenPublication) {
                 from components.release
-
-//                groupId = 'com.zhumj.androidkit'
-//                artifactId = 'AndroidKit'
-//                version = '1.0.1'
             }
         }
     }

@@ -21,106 +21,52 @@ ViewBinding + MVP
 
 ###### 在 Kotlin 项目上引用
 
-1. 在 settings.gradle 里面
-    
-    ```
-    pluginManagement {
-        repositories {
-            ...
-        }
-    }
-    dependencyResolutionManagement {
-        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-        repositories {
-            ...
-            // CompressHelper 和 PhotoViewer 这两个第三方需要添加下面这行配置
-            maven { url 'https://jitpack.io' }
-        }
-    }
-    rootProject.name = "AndroidKitProject"
-    include ':app'
-    
-    // 添加这个
-    include ':AndroidKit'
-    ```
-    
-2. 在项目 build.gradle 里面
-    
-    ```
-    plugins {
-        ...
-    }
-    
-    // 添加这一行启用 config.gradle 公共配置
-    apply from: './AndroidKit/config.gradle'
-    
-    task clean(type: Delete) {
-        delete rootProject.buildDir
-    }
-    ```
-    
-3. 在应用 build.gradle 里面
-    
-    ```
-    android {
-        // AndroidKit 使用的 ViewBinding，应用也应使用 ViewBinding
-        viewBinding {
-            enabled = true
-        }
-    }
-    dependencies {
-        // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
-        // 依赖了 AndroidKit 相当于项目配置了那些基础包
-        implementation project(':AndroidKit')
-    }
-    ```
-    
-**或者**
-
-1. 在 settings.gradle 里面
+1. 在项目根目录创建 config.gradle 文件
 
     ```
-    pluginManagement {
-        repositories {
-            ...
-        }
+    ext {
+        compile_sdk_version = 31
+        min_sdk_version = 21
+        target_sdk_version = 31
+        version_code = 3
+        version_name = '1.0.3'
+
+        jvmTarget_version = '1.8'
+
+        sourceCompatibility_version = JavaVersion.VERSION_1_8
+        targetCompatibility_version = JavaVersion.VERSION_1_8
     }
+    ```
+
+2. 在 settings.gradle 里面
+
+    ```
     dependencyResolutionManagement {
-        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
-            ...
             // AndroidKit、CompressHelper 和 PhotoViewer 这几个第三方需要添加下面这行配置
             maven { url 'https://jitpack.io' }
         }
     }
-    rootProject.name = "AndroidKitProject"
-    include ':app'
     ```
 
-2. 在项目 build.gradle 里面
+3. 在项目 build.gradle 里面
 
     ```
-    plugins {
-        ...
-    }
-    
     // 添加这一行启用 config.gradle 公共配置
-    apply from: './AndroidKit/config.gradle'
-    
-    task clean(type: Delete) {
-        delete rootProject.buildDir
-    }
+    apply from: './config.gradle'
     ```
 
-3. 在应用 build.gradle 里面
+4. 在 gradle.properties 里面
 
     ```
-    android {
-        // AndroidKit 使用的 ViewBinding，应用也应使用 ViewBinding
-        viewBinding {
-            enabled = true
-        }
-    }
+    // 添加这两行使应用对support库的依赖自动转换为androidx的依赖
+    android.useAndroidX=true
+    android.enableJetifier=true   
+    ```
+   
+5. 在应用 build.gradle 里面
+
+    ```
     dependencies {
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
