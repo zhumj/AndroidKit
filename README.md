@@ -124,7 +124,7 @@ ViewBinding + MVP
     dependencies {
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
-        implementation 'com.gitee.zhuminjun:AndroidKit:1.0.2'
+        implementation 'com.gitee.zhuminjun:AndroidKit:last-release'
     }
     ```
 
