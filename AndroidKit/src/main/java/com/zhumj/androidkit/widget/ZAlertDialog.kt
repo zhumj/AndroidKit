@@ -77,11 +77,13 @@ class ZAlertDialog(context: Context, contentView: View? = null) : AlertDialog(co
     }
 
     /* 11111111111111111111111111111 标题 11111111111111111111111111111 */
-    fun setTitleText(title: String) {
+    fun setTitleText(title: String): ZAlertDialog {
         mViewBinding.tvTitle.text = title
+        return this
     }
-    fun setTitleText(@StringRes resId: Int) {
+    fun setTitleText(@StringRes resId: Int): ZAlertDialog {
         mViewBinding.tvTitle.setText(resId)
+        return this
     }
     fun changeTitleViewParam(obj: (TextView) -> Unit): ZAlertDialog {
         obj(mViewBinding.tvTitle)
@@ -89,11 +91,13 @@ class ZAlertDialog(context: Context, contentView: View? = null) : AlertDialog(co
     }
 
     /*11111111111111111111111111111 默认文本内容 11111111111111111111111111111 */
-    fun setMessageText(title: String) {
+    fun setMessageText(title: String): ZAlertDialog {
         mViewBinding.tvMessage.text = title
+        return this
     }
-    fun setMessageText(@StringRes resId: Int) {
+    fun setMessageText(@StringRes resId: Int): ZAlertDialog {
         mViewBinding.tvMessage.setText(resId)
+        return this
     }
     fun changeMessageViewParam(obj: (TextView) -> Unit): ZAlertDialog {
         obj(mViewBinding.tvMessage)
