@@ -45,9 +45,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 添加 防止短时间内多次点击 实现，默认500毫秒，onPreMultiClickListener 取1000毫秒
-        binding.btn1.setOnClickListener(onPreMultiClickListener)
-        binding.btn2.setOnClickListener(onPreMultiClickListener)
-        binding.btn3.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btn1.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btn2.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btn3.setOnClickListener(onPreMultiClickListener)
 
         locationUtil = LocationUtil(this)
     }
@@ -55,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     override fun onResume() {
         super.onResume()
         // MVP 获取数据
-        presenter?.queryDates()
+        mPresenter?.queryDates()
     }
 
     private val onPreMultiClickListener = object : OnPreMultiClickListener(2000) {
@@ -103,7 +103,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     @AfterPermissionGranted(REQUEST_CODE_PERMISSION_LOCATION)
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        binding.tvText.text = "正在定位..."
+        mViewBinding.tvText.text = "正在定位..."
         locationUtil.getAddress(lifecycleScope, object : LocationUtil.OnGetLocationListener {
             // 位置信息开关处于禁用状态
             override fun isLocationDisable() {
@@ -115,13 +115,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
                     .setPositiveButton("设置") { _, _ -> LocationUtil.gotoLocationSettings(this@MainActivity) }
                     .create()
                     .show()
-                binding.tvText.text = "“位置信息”未开启"
+                mViewBinding.tvText.text = "“位置信息”未开启"
             }
 
             override fun onAddressCallBack(address: Address?) {
                 val s = "${address?.countryName ?: "null"}, ${address?.countryCode ?: "null"}"
                 Log.d(TAG, s)
-                binding.tvText.text = s
+                mViewBinding.tvText.text = s
                 validPhone(address?.countryCode)
             }
         })

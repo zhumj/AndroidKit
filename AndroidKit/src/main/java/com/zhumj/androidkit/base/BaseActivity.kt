@@ -19,8 +19,8 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
 
     private lateinit var _binding: VB
 
-    protected val binding get() = _binding
-    protected var presenter: BP? = null
+    protected val mViewBinding get() = _binding
+    protected var mPresenter: BP? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +34,8 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
      * 初始化部分工具类
      */
     private fun init() {
-        if (presenter == null) {
-            presenter = obtainPresenter()
+        if (mPresenter == null) {
+            mPresenter = obtainPresenter()
         }
         if (isRegisteredEventBus()) {
             EventBusUtil.register(this)
@@ -100,7 +100,7 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
         if (isRegisteredEventBus()) {
             EventBusUtil.unregister(this)
         }
-        presenter?.onDestroy()
+        mPresenter?.onDestroy()
         super.onDestroy()
     }
 

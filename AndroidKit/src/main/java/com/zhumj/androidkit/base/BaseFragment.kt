@@ -22,8 +22,8 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
 
     private lateinit var _binding: VB
 
-    protected val binding get() = _binding
-    protected var presenter: BP? = null
+    protected val mViewBinding get() = _binding
+    protected var mPresenter: BP? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +31,8 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
     }
 
     private fun init() {
-        if (presenter == null) {
-            presenter = obtainPresenter()
+        if (mPresenter == null) {
+            mPresenter = obtainPresenter()
         }
 
         if (isRegisteredEventBus()) {
@@ -94,7 +94,7 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
         if (isRegisteredEventBus()) {
             EventBusUtil.unregister(this)
         }
-        presenter?.onDestroy()
+        mPresenter?.onDestroy()
         onDestroyViewAndThing()
         super.onDestroyView()
     }
