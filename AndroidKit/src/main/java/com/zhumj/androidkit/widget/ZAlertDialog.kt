@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import com.zhumj.androidkit.R
@@ -76,12 +77,24 @@ class ZAlertDialog(context: Context, contentView: View? = null) : AlertDialog(co
     }
 
     /* 11111111111111111111111111111 标题 11111111111111111111111111111 */
+    fun setTitleText(title: String) {
+        mViewBinding.tvTitle.text = title
+    }
+    fun setTitleText(@StringRes resId: Int) {
+        mViewBinding.tvTitle.setText(resId)
+    }
     fun changeTitleViewParam(obj: (TextView) -> Unit): ZAlertDialog {
         obj(mViewBinding.tvTitle)
         return this
     }
 
     /*11111111111111111111111111111 默认文本内容 11111111111111111111111111111 */
+    fun setMessageText(title: String) {
+        mViewBinding.tvMessage.text = title
+    }
+    fun setMessageText(@StringRes resId: Int) {
+        mViewBinding.tvMessage.setText(resId)
+    }
     fun changeMessageViewParam(obj: (TextView) -> Unit): ZAlertDialog {
         obj(mViewBinding.tvMessage)
         return this
