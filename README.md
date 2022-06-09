@@ -107,8 +107,8 @@ ViewBinding + MVP
 AppCompatActivity 基类
 
 ```
-protected val binding: ViewBinding
-protected var presenter: BasePresenter
+protected val mViewBinding: ViewBinding
+protected var mPresenter: BasePresenter
 
 initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
 
@@ -143,8 +143,8 @@ open fun onReceiveStickyEvent(event: EventMessage<*>) {
 Fragment 基类
 
 ```
-protected val binding: ViewBinding
-protected var presenter: BasePresenter
+protected val mViewBinding: ViewBinding
+protected var mPresenter: BasePresenter
 
 initToolBar(toolbar: Toolbar?, isShowBack: Boolean/*是否显示返回键*/, isShowTitle: Boolean/*是否显示标题*/): 加载工具栏
 
@@ -716,6 +716,7 @@ interface OnZAlertDialogButtonClickListener {
 6. 新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
 7. 新增自定义AlertDialog: ZAlertDialog，旨在统一 Dialog 风格
 
-#### v1.0.4（未发布）
+#### v1.0.4
 
 1. 优化 ZAlertDialog 的方法
+2. BaseActivity、BaseFragment 中的字段修改：binding -> mViewBinding，presenter -> mPresenter
