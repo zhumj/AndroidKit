@@ -28,8 +28,8 @@ ViewBinding + MVP
         compile_sdk_version = 31
         min_sdk_version = 21
         target_sdk_version = 31
-        version_code = 3
-        version_name = '1.0.3'
+        version_code = 4
+        version_name = '1.0.4'
 
         jvmTarget_version = '1.8'
 
