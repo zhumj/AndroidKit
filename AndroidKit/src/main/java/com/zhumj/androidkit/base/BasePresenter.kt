@@ -45,7 +45,7 @@ open class BasePresenter<out V>(view: V) {
     val view: V?
         get() = mViewRef?.get()
 
-    fun onDestroy() {
+    open fun onDestroy() {
         detachView()
     }
 }

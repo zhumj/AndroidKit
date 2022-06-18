@@ -720,3 +720,7 @@ interface OnZAlertDialogButtonClickListener {
 
 1. 优化 ZAlertDialog 的方法
 2. BaseActivity、BaseFragment 中的字段修改：binding -> mViewBinding，presenter -> mPresenter
+
+#### v1.0.5(未发布)
+
+1. 修复 BasePresenter 的 onDestroy 方法没有暴露给它的实现类的问题
