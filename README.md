@@ -19,7 +19,7 @@ ViewBinding + MVP
 
 ## 使用
 
-###### 在 Kotlin 项目上引用
+### 在 Kotlin 项目上引用
 
 1. 在项目根目录创建 config.gradle 文件
 
@@ -74,7 +74,7 @@ ViewBinding + MVP
     }
     ```
 
-###### 在 JAVA 项目上引用
+### 在 JAVA 项目上引用
 
     **在 Kotlin 项目上引用** 的基础上
 
@@ -100,9 +100,9 @@ ViewBinding + MVP
 
 ## 功能
 
-#### base
+### base
 
-###### BaseActivity
+#### BaseActivity
 
 AppCompatActivity 基类
 
@@ -138,7 +138,7 @@ open fun onReceiveStickyEvent(event: EventMessage<*>) {
 }
 ```
 
-###### BaseFragment
+#### BaseFragment
 
 Fragment 基类
 
@@ -177,13 +177,13 @@ open fun onReceiveStickyEvent(event: EventMessage<*>) {
 protected abstract fun onDestroyViewAndThing()
 ```
 
-###### BasePresenter
+#### BasePresenter
 
 MVP 中的 Presenter 基类
 
-#### builder
+### builder
 
-###### ShapeBuilder
+#### ShapeBuilder
 
 shape构造器，使用这个可以直接代码设置 shape 和 selector
 
@@ -220,7 +220,7 @@ setShapeGradientUseLevel：设置渐变等级
 into(view: View)：对 view 启用以上设置
 ```
 
-###### ToastBuilder
+#### ToastBuilder
 
 自定义Toast构造器，可设置类型（默认、成功、失败、消息、警告）、背景颜色、倒角、显示位置、文本颜色和大小
 **@Deprecated(message = "Android 11（API 30）之后 Toast 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替")**
@@ -242,9 +242,9 @@ setDuration：设置显示时间
 create()：启用以上设置并生成Toast
 ```
 
-#### eventbus
+### eventbus
 
-###### EventBusUtil
+#### EventBusUtil
 
 EventBus 工具类
 
@@ -257,13 +257,13 @@ removeSticky：移除指定粘性事件
 removeAllSticky：移除全部粘性事件
 ```
 
-###### EventMessage
+#### EventMessage
 
 EventBus 数据实体
 
-#### extend
+### extend
 
-###### SnackBarExt
+#### SnackBarExt
 
 SnackBar 扩展，新增显示 Toast 样式的 SnackBar 的方法
 
@@ -282,19 +282,19 @@ SnackBarExt.make(view, "SnackBar Test", Snackbar.LENGTH_SHORT)
     )
 ```
 
-#### holder
+### holder
 
-###### BaseViewHolder
+#### BaseViewHolder
 
 ViewHolder 基类
 
-###### BaseViewBindingHolder
+#### BaseViewBindingHolder
 
 继承 BaseViewHolder，方便 ViewBinding 使用
 
-#### premulticlick
+### premulticlick
 
-###### OnPreMultiClickListener
+#### OnPreMultiClickListener
 
 防止短时间内多次点击，默认 500 毫秒内重复点击无效
 
@@ -312,9 +312,9 @@ private val onPreMultiClickClictener = object: OnPreMultiClickClictener(1000) {
 }
 ```
 
-#### singleton
+### singleton
 
-###### SingletonHolder
+#### SingletonHolder
 
 Kotlin 单例辅助类，T：需要实现单例的类，A：传递的参数，如 Context
 
@@ -331,9 +331,9 @@ class MyManager private constructor(context: Context) {
 MyManager.getInstance(context).doSomething()
 ```
 
-#### utils
+### utils
 
-###### Base64Util
+#### Base64Util
 
 Base64 编解码相关工具类，可对字符串、文件、Bitmap进行编解码
 
@@ -348,7 +348,7 @@ bitmapEncode：对图片进行Base64编码
 bitmapDecode：对图片进行Base64解码
 ```
 
-###### AppUtil
+#### AppUtil
 
 App 相关工具类，可获取APP版本、名称等，可获取APK安装路径、可检查APK是否安装
 
@@ -360,7 +360,7 @@ getSelfApkPath：获取APK安装路径
 isPkgInstalled：检查APK是否安装
 ```
 
-###### DateTimeUtil
+#### DateTimeUtil
 
 日期/时间 工具类
 
@@ -380,7 +380,7 @@ getDateFormat：把String日期转成制定格式
 getAgeByBirthday：根据生日计算年龄
 ```
 
-###### DeviceUtil
+#### DeviceUtil
 
 设备相关工具类
 
@@ -392,7 +392,7 @@ getBuildLevel：获取手机Android API等级（22、23 ...）
 getBuildVersion：获取手机Android 版本（4.4、5.0、5.1 ...）
 ```
 
-###### SPUtil
+#### SPUtil
 
 SharedPreferences工具类
 
@@ -405,7 +405,7 @@ contains：查询某个key是否已经存在
 getAll：获取所有已保存的键值对
 ```
 
-###### ValidatorUtil
+#### ValidatorUtil
 
 正则验证工具类
 
@@ -417,7 +417,7 @@ isEmail：验证邮箱
 isChinese：验证汉字
 ```
 
-###### ScreenUtil
+#### ScreenUtil
 
 屏幕相关工具类
 
@@ -427,7 +427,7 @@ getScreenHeight：获得屏幕高度
 getStatusBarHeight、getStatusHeight：获取状态栏高度
 ```
 
-###### DensityUtil
+#### DensityUtil
 
 分辨率相关
 
@@ -438,7 +438,7 @@ sp2px：sp转px
 px2sp：px转sp
 ```
 
-###### ArithmeticUtil
+#### ArithmeticUtil
 
 运算相关
 
@@ -456,7 +456,20 @@ round(b: BigDecimal, scale: Int)：提供精确的小数位四舍五入处理，
 compare(v1: String, v2: String)：比较大小，如果v1 大于v2 则 返回true 否则false
 ```
 
-###### LocationUtil
+#### TextUtil
+
+Text测量相关
+
+```
+// 获取Text宽度
+getTextWidth(textPaint: Paint, text: String): Float
+// 获取Text高度
+getTextHeight(textPaint: Paint): Float
+// 获取Text基线
+getTextBaseLine(textPaint: Paint): Float
+```
+
+#### LocationUtil
 
 位置相关
 
@@ -517,7 +530,7 @@ lifecycleScope.launch {
 */
 ```
 
-###### ClipboardUtil
+#### ClipboardUtil
 
 剪切板相关工具类
 
@@ -533,9 +546,9 @@ getClipType：获取第一条内容类型
 enum class ClipType { UNKNOWN, TEXT, INTENT, URI, HTML, }
 ```
 
-#### widget
+### widget
 
-###### CustomEditText
+#### CustomEditText
 
 自定义EditText，可设置DrawableRight图片添加一键清除功能，可开启文本抖动动画，可设置禁用/开启编辑状态
 
@@ -546,11 +559,11 @@ getEditable：判断 EditText 是否处于可编辑状态
 setEditable：设置 EditText 是否可编辑
 ```
 
-###### GridRadioGroup
+#### GridRadioGroup
 
 自定义GridLayout，结合 GridLayout + RadioGroup 功能
 
-###### ZAlertDialog
+#### ZAlertDialog
 
 自定义 AlertDialog，旨在统一 Dialog 风格
 
@@ -572,7 +585,7 @@ interface OnZAlertDialogButtonClickListener {
 }：按钮监听回调
 ```
 
-#### MVP
+### MVP
 
 使用    
 
@@ -692,9 +705,9 @@ interface OnZAlertDialogButtonClickListener {
 
 ## 版本
 
-#### v1.0.1
+### v1.0.1
 
-#### v1.0.2
+### v1.0.2
 
 1.  新增 Kotlin 单例辅助类: SingletonHolder
 2.  新增位置相关工具类: LocationUtil
@@ -706,7 +719,7 @@ interface OnZAlertDialogButtonClickListener {
 8.  ValidatorUtil: 更新 密码验证 正则表达式
 9.  新增google 开源手机号码相关库：libphonenumber:8.12.47
 
-#### v1.0.3
+### v1.0.3
 
 1. 新增剪切板相关工具类: ClipboardUtil
 2. ToastBuilder 添加过时标志: Android 11(API 30)之后 Toast.setView() 不能自定义了，请使用 SnackBarExt 里面的 Snackbar.showToast 方法代替
@@ -716,11 +729,12 @@ interface OnZAlertDialogButtonClickListener {
 6. 新增下拉刷新、上拉加载库：SmartRefreshLayout：2.0.5 及相应的 header-classics:2.0.5、footer-classics:2.0.5'
 7. 新增自定义AlertDialog: ZAlertDialog，旨在统一 Dialog 风格
 
-#### v1.0.4
+### v1.0.4
 
 1. 优化 ZAlertDialog 的方法
 2. BaseActivity、BaseFragment 中的字段修改：binding -> mViewBinding，presenter -> mPresenter
 
-#### v1.0.5(未发布)
+### v1.0.5(未发布)
 
 1. 修复 BasePresenter 的 onDestroy 方法没有暴露给它的实现类的问题
+2. 新增 Text 测量相关工具类 TextUtil.kt，方便自定义View画文字
