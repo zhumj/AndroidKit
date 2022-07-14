@@ -48,7 +48,7 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
      * @param  isShowTitle  是否显示标题
      */
     protected fun initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) {
-        initToolBar(isShowBack, isShowTitle)
+        initToolBar(null, isShowBack, isShowTitle)
     }
     protected fun initToolBar(toolbar: Toolbar?, isShowBack: Boolean = false, isShowTitle: Boolean = false) {
         if (toolbar != null) {

@@ -738,3 +738,12 @@ interface OnZAlertDialogButtonClickListener {
 
 1. 修复 BasePresenter 的 onDestroy 方法没有暴露给它的实现类的问题
 2. 新增 Text 测量相关工具类 TextUtil.kt，方便自定义View画文字
+
+### v1.0.6
+
+1. 修复 BaseActivity 的 initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) 方法传递到下一层的问题
+2. 修改 OnPreMultiClickListener 的 onInvalidClick 方法为可选实现
+3. 删除 自定义View: GridRadioGroup，需要的话可以另行添加 [RadioGridLayout](https://github.com/zhumj/RadioGridLayoutDemo)
+```
+implementation 'com.github.zhumj:RadioGridLayoutDemo:1.0.1'
+```

@@ -43,5 +43,5 @@ abstract class OnPreMultiClickListener(private val intervalTime: Long = 500): Vi
     /**
      * 无效点击回调
      */
-    abstract fun onInvalidClick(view: View)
+    open fun onInvalidClick(view: View) { }
 }
