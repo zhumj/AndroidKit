@@ -38,5 +38,5 @@ android {
 
 dependencies {
     implementation project(':AndroidKit')
-//    implementation 'com.gitee.zhuminjun:AndroidKit:1.0.3'
+//    implementation 'com.github.zhumj:AndroidKit:1.0.6'
 }

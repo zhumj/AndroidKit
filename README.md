@@ -70,9 +70,6 @@ ViewBinding + MVP
     dependencies {
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
-        // 1.0.5 及以前版本使用下面这个
-        implementation 'com.gitee.zhuminjun:AndroidKit:last-release'
-        // 1.0.6 及以后版本使用下面这个
         implementation 'com.github.zhumj:AndroidKit:last-release'
     }
     ```
@@ -562,17 +559,15 @@ getEditable：判断 EditText 是否处于可编辑状态
 setEditable：设置 EditText 是否可编辑
 ```
 
-#### GridRadioGroup
-
-自定义GridLayout，结合 GridLayout + RadioGroup 功能
-
 #### ZAlertDialog
 
 自定义 AlertDialog，旨在统一 Dialog 风格
 
 ```
 changeRootViewParam：修改最底层背景CardView参数
+setTitleText：设置标题
 changeTitleViewParam：修改标题TextView参数
+setMessageText：设置默认内容文本
 changeMessageViewParam：修改默认内容文本TextView参数
 setCustomContentView：设置自定义内容，装在内容容器FrameLayout里面
 changeButtonRootViewParam：修改按钮容器参数，LinearLayout
@@ -746,7 +741,7 @@ interface OnZAlertDialogButtonClickListener {
 
 1. 修复 BaseActivity 的 initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) 方法传递到下一层的问题
 2. 修改 OnPreMultiClickListener 的 onInvalidClick 方法为可选实现
-3. 删除 自定义View: GridRadioGroup，需要的话可以另行添加 [RadioGridLayout](https://github.com/zhumj/RadioGridLayoutDemo)
+3. 删除 自定义View: GridRadioGroup，需要的话可以另行添加 [RadioGridLayout](https://github.com/zhumj/RadioGridLayout)
     ```
-    implementation 'com.github.zhumj:RadioGridLayoutDemo:1.0.1'
+    implementation 'com.github.zhumj:RadioGridLayout:1.0.1'
     ```
