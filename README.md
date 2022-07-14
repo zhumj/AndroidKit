@@ -1,6 +1,6 @@
 # AndroidKitProject
 
-[![](https://jitpack.io/v/com.gitee.zhuminjun/AndroidKit.svg)](https://jitpack.io/#com.gitee.zhuminjun/AndroidKit)
+[![](https://jitpack.io/v/com.github.zhumj/AndroidKit.svg)](https://jitpack.io/#com.github.zhumj/AndroidKit)
 
 ## 介绍
 
@@ -28,8 +28,8 @@ ViewBinding + MVP
         compile_sdk_version = 31
         min_sdk_version = 21
         target_sdk_version = 31
-        version_code = 4
-        version_name = '1.0.4'
+        version_code = 6
+        version_name = '1.0.6'
 
         jvmTarget_version = '1.8'
 
@@ -70,7 +70,10 @@ ViewBinding + MVP
     dependencies {
         // 最好把其余的删掉只保留这一行，因为 AndroidKit 已经使用 api 把需要的基础包添加进来了，
         // 依赖了 AndroidKit 相当于项目配置了那些基础包
+        // 1.0.5 及以前版本使用下面这个
         implementation 'com.gitee.zhuminjun:AndroidKit:last-release'
+        // 1.0.6 及以后版本使用下面这个
+        implementation 'com.github.zhumj:AndroidKit:last-release'
     }
     ```
 
@@ -744,6 +747,6 @@ interface OnZAlertDialogButtonClickListener {
 1. 修复 BaseActivity 的 initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) 方法传递到下一层的问题
 2. 修改 OnPreMultiClickListener 的 onInvalidClick 方法为可选实现
 3. 删除 自定义View: GridRadioGroup，需要的话可以另行添加 [RadioGridLayout](https://github.com/zhumj/RadioGridLayoutDemo)
-```
-implementation 'com.github.zhumj:RadioGridLayoutDemo:1.0.1'
-```
+    ```
+    implementation 'com.github.zhumj:RadioGridLayoutDemo:1.0.1'
+    ```
