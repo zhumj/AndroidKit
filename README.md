@@ -719,7 +719,7 @@ interface OnZAlertDialogButtonClickListener {
 
 5. 图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
 
-6. google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
+6. google 开源手机号码相关库：[libphonenumber:8.12.53](https://github.com/google/libphonenumber)
     
 7. 下拉刷新、上拉加载库：[SmartRefreshLayout:2.0.5](https://github.com/scwang90/SmartRefreshLayout)
 
