@@ -10,6 +10,7 @@ import java.lang.reflect.Method
  * @date 2022/4/23 16:17
  * @description : SharedPreferences工具类
  */
+@Deprecated(message = "狗哥建议使用 DataStore 替代 SharedPreferences，详情请看 PreferencesDataStoreExt")
 object SPUtil {
 
     /**

@@ -263,6 +263,27 @@ EventBus 数据实体
 
 ### extend
 
+#### PreferencesDataStoreExt
+
+Preferences DataStore 扩展，对 Context 扩展了 DataStore 的 put、get 还有 clean 方法，在页面 context.对应方法 就可以直接调用
+
+```
+方法：
+fun <T> Context.getPreferencesDataStoreValue(key: String, defaultValue: T): T
+使用：
+context.getPreferencesDataStoreValue("key", defaultValue)
+
+方法：
+fun <T> Context.putPreferencesDataStoreValue(key: String, value: T)
+使用: 
+context.putPreferencesDataStoreValue("key", value)
+
+方法：
+fun Context.cleanPreferencesDataStore()
+使用: 
+context.cleanPreferencesDataStore()
+```
+
 #### SnackBarExt
 
 SnackBar 扩展，新增显示 Toast 样式的 SnackBar 的方法
@@ -395,6 +416,7 @@ getBuildVersion：获取手机Android 版本（4.4、5.0、5.1 ...）
 #### SPUtil
 
 SharedPreferences工具类
+**@Deprecated(message = "狗哥建议使用 DataStore 替代 SharedPreferences，详情请看 PreferencesDataStoreExt")**
 
 ```
 put：保存数据的方法
@@ -687,19 +709,21 @@ interface OnZAlertDialogButtonClickListener {
 
 ## 第三方库
 
-1.  权限请求：[Easypermissions-ktx：1.0.0](https://github.com/vmadalin/easypermissions-ktx)
+1. 权限请求：[Easypermissions-ktx：1.0.0](https://github.com/vmadalin/easypermissions-ktx)
 
-2.  事件总线：[Eventbus:3.3.1](https://github.com/greenrobot/EventBus)
+2. 事件总线：[Eventbus:3.3.1](https://github.com/greenrobot/EventBus)
 
-3.  比较好用的图片压缩：[CompressHelper:1.0.5](https://github.com/nanchen2251/CompressHelper)
+3. 比较好用的图片压缩：[CompressHelper:1.0.5](https://github.com/nanchen2251/CompressHelper)
     
-4.  微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
+4. 微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
 
-5.  图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
+5. 图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
 
-6.  google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
+6. google 开源手机号码相关库：[libphonenumber:8.12.47](https://github.com/google/libphonenumber)
     
-7.  下拉刷新、上拉加载库：[SmartRefreshLayout:2.0.5](https://github.com/scwang90/SmartRefreshLayout)
+7. 下拉刷新、上拉加载库：[SmartRefreshLayout:2.0.5](https://github.com/scwang90/SmartRefreshLayout)
+
+8. Preferences DataStore：[Preferences DataStore:1.0.0](https://developer.android.google.cn/topic/libraries/architecture/datastore#kotlin)
 
 ## 版本
 
@@ -745,3 +769,8 @@ interface OnZAlertDialogButtonClickListener {
     ```
     implementation 'com.github.zhumj:RadioGridLayout:1.0.1'
     ```
+
+### v1.0.7
+
+1. SPUtil 添加过时标志: 狗哥建议使用 DataStore 替代 SharedPreferences，详情请看 PreferencesDataStoreExt
+2. 新增 PreferencesDataStoreExt：Preferences DataStore 扩展，使用简单

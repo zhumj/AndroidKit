@@ -17,6 +17,9 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import com.zhumj.androidkit.base.BaseActivity
 import com.zhumj.androidkit.builder.ToastBuilder
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.cleanPreferencesDataStore
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.getPreferencesDataStoreValue
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.putPreferencesDataStoreValue
 import com.zhumj.androidkit.extend.SnackBarExt
 import com.zhumj.androidkit.extend.SnackBarExt.showToast
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
@@ -24,6 +27,7 @@ import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
 import com.zhumj.androidkitproject.mvp.contract.MainContract
 import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
@@ -48,6 +52,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         mViewBinding.btn1.setOnClickListener(onPreMultiClickListener)
         mViewBinding.btn2.setOnClickListener(onPreMultiClickListener)
         mViewBinding.btn3.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btnPDSPut.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btnPDSGet.setOnClickListener(onPreMultiClickListener)
+        mViewBinding.btnPDSClean.setOnClickListener(onPreMultiClickListener)
 
         locationUtil = LocationUtil(this)
     }
@@ -58,16 +65,30 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         mPresenter?.queryDates()
     }
 
-    private val onPreMultiClickListener = object : OnPreMultiClickListener(2000) {
+    private val onPreMultiClickListener = object : OnPreMultiClickListener(500) {
         override fun onValidClick(view: View) {
-            if (view is  Button) {
-                SnackBarExt.make(view, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
-                    .showToast(
-                        toastType = SnackBarExt.ToastType.SUCCESS,
-                        gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                    )
+            when(view.id) {
+                R.id.btn1, R.id.btn2, R.id.btn3 -> {
+                    if (view is  Button) {
+                        SnackBarExt.make(view, "${view.text} 点击有效", Snackbar.LENGTH_SHORT)
+                            .showToast(
+                                toastType = SnackBarExt.ToastType.SUCCESS,
+                                gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                            )
+                    }
+                    checkLocationPermission()
+                }
+                R.id.btnPDSPut -> {
+                    this@MainActivity.putPreferencesDataStoreValue("key", "保存的数据")
+                }
+                R.id.btnPDSGet -> {
+                    mViewBinding.tvText.text = this@MainActivity.getPreferencesDataStoreValue("key", "没保存数据")
+                }
+                R.id.btnPDSClean -> {
+                    this@MainActivity.cleanPreferencesDataStore()
+                }
             }
-            checkLocationPermission()
+
         }
 
         override fun onInvalidClick(view: View) {
@@ -161,8 +182,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             try {
                 val phoneNumberUtil = PhoneNumberUtil.getInstance()
                 val phoneNumber = phoneNumberUtil.parse("15800235429", countryCode)
-                Log.d(TAG, "${phoneNumber.countryCode}, ${phoneNumber.nationalNumber}")
+                Log.d(TAG, "手机号解析：${phoneNumber.countryCode}, ${phoneNumber.nationalNumber}")
                 Log.d(TAG, "手机号是否合法：${phoneNumberUtil.isValidNumber(phoneNumber)}")
+                Log.d(TAG, "手机号格式化：${phoneNumberUtil.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)}")
+                Log.d(TAG, "号码类型：${phoneNumberUtil.getNumberType(phoneNumber)}")
             } catch (e: NumberParseException) {
                 Log.d(TAG, "号码解析异常: $e")
             }

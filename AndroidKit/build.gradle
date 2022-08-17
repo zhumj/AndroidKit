@@ -56,11 +56,14 @@ dependencies {
     // 图片加载库：https://coil-kt.github.io/coil/
     api 'io.coil-kt:coil:2.0.0-rc03'
     // google 开源手机号码相关库：https://github.com/google/libphonenumber
-    api 'com.googlecode.libphonenumber:libphonenumber:8.12.47'
+    api 'com.googlecode.libphonenumber:libphonenumber:8.12.53'
     // 下拉刷新、上拉加载库：https://github.com/scwang90/SmartRefreshLayout
     api 'io.github.scwang90:refresh-layout-kernel:2.0.5'
     api 'io.github.scwang90:refresh-header-classics:2.0.5'
     api 'io.github.scwang90:refresh-footer-classics:2.0.5'
+    // Preferences DataStore：https://developer.android.google.cn/topic/libraries/architecture/datastore#kotlin
+    api 'androidx.datastore:datastore-preferences:1.0.0'
+    api 'androidx.datastore:datastore-preferences-core:1.0.0'
 }
 
 afterEvaluate {
