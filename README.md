@@ -774,3 +774,4 @@ interface OnZAlertDialogButtonClickListener {
 
 1. SPUtil 添加过时标志: 狗哥建议使用 DataStore 替代 SharedPreferences，详情请看 PreferencesDataStoreExt
 2. 新增 PreferencesDataStoreExt：Preferences DataStore 扩展，使用简单
+3. ZAlertDialog 按钮新增简体中文适配

@@ -24,10 +24,10 @@ import com.zhumj.androidkit.extend.SnackBarExt
 import com.zhumj.androidkit.extend.SnackBarExt.showToast
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.LocationUtil
+import com.zhumj.androidkit.widget.ZAlertDialog
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
 import com.zhumj.androidkitproject.mvp.contract.MainContract
 import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
@@ -62,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
     override fun onResume() {
         super.onResume()
         // MVP 获取数据
-        mPresenter?.queryDates()
+        mPresenter?.queryDates(lifecycleScope)
     }
 
     private val onPreMultiClickListener = object : OnPreMultiClickListener(500) {
@@ -129,12 +129,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
             // 位置信息开关处于禁用状态
             override fun isLocationDisable() {
                 // 弹出Dialog
-                AlertDialog.Builder(this@MainActivity)
-                    .setTitle("“位置信息”未开启")
-                    .setMessage("请前往设置开启定位")
-                    .setNegativeButton("取消", null)
-                    .setPositiveButton("设置") { _, _ -> LocationUtil.gotoLocationSettings(this@MainActivity) }
-                    .create()
+                ZAlertDialog(this@MainActivity)
+                    .setTitleText("“位置信息”未开启")
+                    .setMessageText("请前往设置开启定位")
+                    .changeCompleteButtonParam {
+                        it.text = "设置"
+                    }
+                    .setOnCompleteButtonClickListener(object : ZAlertDialog.OnZAlertDialogButtonClickListener {
+                        override fun onDialogButtonClick(dialog: ZAlertDialog, view: View) {
+                            LocationUtil.gotoLocationSettings(this@MainActivity)
+                        }
+                    })
                     .show()
                 mViewBinding.tvText.text = "“位置信息”未开启"
             }

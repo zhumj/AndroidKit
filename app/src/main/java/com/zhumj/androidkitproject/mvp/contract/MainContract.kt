@@ -1,11 +1,13 @@
 package com.zhumj.androidkitproject.mvp.contract
 
+import androidx.lifecycle.LifecycleCoroutineScope
+
 /**
  * 这里是 MVP 定义接口的地方
  */
 interface MainContract {
     interface Model {
-        fun queryDates(): List<Int>
+        suspend fun queryDates(): List<Int>
     }
 
     interface View {
@@ -14,6 +16,6 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun queryDates()
+        fun queryDates(lifecycleScope: LifecycleCoroutineScope)
     }
 }
