@@ -268,20 +268,42 @@ EventBus 数据实体
 Preferences DataStore 扩展，对 Context 扩展了 DataStore 的 put、get 还有 clean 方法，在页面 context.对应方法 就可以直接调用
 
 ```
-方法：
-fun <T> Context.getPreferencesDataStoreValue(key: String, defaultValue: T): T
+获取 Preferences DataStore 保存的数据：
+fun <T> Context.getStoreValue(key: String, defaultValue: T): T
 使用：
-context.getPreferencesDataStoreValue("key", defaultValue)
+context.getStoreValue("key", defaultValue)
 
-方法：
-fun <T> Context.putPreferencesDataStoreValue(key: String, value: T)
+*Preferences DataStore 保存数据：*
+fun <T> Context.putStoreValue(key: String, value: T)
 使用: 
-context.putPreferencesDataStoreValue("key", value)
+context.putStoreValue("key", value)
+
+获取 Preferences DataStore 保存的限制有效期的数据：
+fun <T> Context.getStoreFiniteTimeValue(key: String): StoreFiniteTimeEntity<T>?
+使用: 
+context.getStoreFiniteTimeValue("key")
+
+Preferences DataStore 保存限制有效期的数据：
+fun <T> Context.putStoreFiniteTimeValue(key: String, value: T, currentTime: Long = System.currentTimeMillis(), finiteTime: Long = 0)
+使用: 
+context.putStoreFiniteTimeValue(key, value, currentTime, finiteTime)
 
 方法：
 fun Context.cleanPreferencesDataStore()
 使用: 
 context.cleanPreferencesDataStore()
+
+/**
+ * 存储的带有效期的数据实体，关于如何计算是否过期：
+ * currentTime = System.currentTimeMillis()
+ * currentTime - StoreFiniteTimeEntity.time > StoreFiniteTimeEntity.finiteTime: 已过有效期
+ * currentTime - StoreFiniteTimeEntity.time <= StoreFiniteTimeEntity.finiteTime: 未过有效期
+ */
+data class StoreFiniteTimeEntity<T>(
+    val time: Long,// 存储时间
+    val finiteTime: Long,// 有效时长
+    val data: T// 数据
+)
 ```
 
 #### SnackBarExt
@@ -568,6 +590,15 @@ getClipType：获取第一条内容类型
 enum class ClipType { UNKNOWN, TEXT, INTENT, URI, HTML, }
 ```
 
+#### GsonUtil
+
+Gson解析工具类
+
+```
+parse：把数据转为Json字符串
+from：把Json字符串转为特定数据
+```
+
 ### widget
 
 #### CustomEditText
@@ -725,6 +756,8 @@ interface OnZAlertDialogButtonClickListener {
 
 8. Preferences DataStore：[Preferences DataStore:1.0.0](https://developer.android.google.cn/topic/libraries/architecture/datastore#kotlin)
 
+9. Gson：[Gson:2.9.1](https://github.com/google/gson)
+
 ## 版本
 
 ### v1.0.1
@@ -773,5 +806,6 @@ interface OnZAlertDialogButtonClickListener {
 ### v1.0.7
 
 1. SPUtil 添加过时标志: 狗哥建议使用 DataStore 替代 SharedPreferences，详情请看 PreferencesDataStoreExt
-2. 新增 PreferencesDataStoreExt：Preferences DataStore 扩展，使用简单
-3. ZAlertDialog 按钮新增简体中文适配
+2. 新增 Preferences DataStore 替代 SharedPreferences，使用更简单，详情请看 PreferencesDataStoreExt
+3. 新增 GsonUtil 工具类
+4. ZAlertDialog 按钮新增简体中文适配

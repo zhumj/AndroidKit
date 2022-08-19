@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.i18n.phonenumbers.NumberParseException
@@ -17,17 +16,23 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import com.zhumj.androidkit.base.BaseActivity
 import com.zhumj.androidkit.builder.ToastBuilder
-import com.zhumj.androidkit.extend.PreferencesDataStoreExt.cleanPreferencesDataStore
-import com.zhumj.androidkit.extend.PreferencesDataStoreExt.getPreferencesDataStoreValue
-import com.zhumj.androidkit.extend.PreferencesDataStoreExt.putPreferencesDataStoreValue
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.cleanStore
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.getStoreFiniteTimeValue
+import com.zhumj.androidkit.extend.PreferencesDataStoreExt.putStoreFiniteTimeValue
 import com.zhumj.androidkit.extend.SnackBarExt
 import com.zhumj.androidkit.extend.SnackBarExt.showToast
 import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
+import com.zhumj.androidkit.utils.GsonUtil
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkit.widget.ZAlertDialog
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
 import com.zhumj.androidkitproject.mvp.contract.MainContract
 import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
+
+data class DataEntity(
+    val stringValue: String = "你好啊",
+    val intValue: Int = 10001,
+)
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainContract.View {
 
@@ -79,13 +84,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
                     checkLocationPermission()
                 }
                 R.id.btnPDSPut -> {
-                    this@MainActivity.putPreferencesDataStoreValue("key", "保存的数据")
+                    this@MainActivity.putStoreFiniteTimeValue("key", DataEntity(), finiteTime = 1000 * 60 * 60 * 24 * 3)
                 }
                 R.id.btnPDSGet -> {
-                    mViewBinding.tvText.text = this@MainActivity.getPreferencesDataStoreValue("key", "没保存数据")
+                    val finiteTimeEntity = this@MainActivity.getStoreFiniteTimeValue<DataEntity>("key")
+                    if (finiteTimeEntity == null) {
+                        mViewBinding.tvText.text = "没有数据哦"
+                    } else {
+                        mViewBinding.tvText.text = GsonUtil.parse(finiteTimeEntity)
+                    }
                 }
                 R.id.btnPDSClean -> {
-                    this@MainActivity.cleanPreferencesDataStore()
+                    this@MainActivity.cleanStore()
                 }
             }
 
