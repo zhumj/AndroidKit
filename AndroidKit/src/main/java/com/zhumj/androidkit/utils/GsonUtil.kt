@@ -13,7 +13,7 @@ object GsonUtil {
     /**
      * 把数据转为Json字符串
      */
-    fun parse(json: Any): String {
+    fun <T> parse(json: T): String {
         return Gson().toJson(json)
     }
 

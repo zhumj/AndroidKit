@@ -49,8 +49,7 @@ object PreferencesDataStoreExt {
                 is Boolean -> putBoolean(preferencesStore, key, value)
                 is Float -> putFloat(preferencesStore, key, value)
                 is Double -> putDouble(preferencesStore, key, value)
-                else -> putString(preferencesStore, key, value.toString())
-//                else -> throw IllegalArgumentException("This type cannot be saved to the Data Store")
+                else -> throw IllegalArgumentException("This type cannot be saved to the Data Store")
             }
         }
     }
