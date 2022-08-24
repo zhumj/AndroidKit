@@ -1,5 +1,7 @@
 package com.zhumj.androidkit.base
 
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import java.lang.ref.Reference
 import java.lang.ref.WeakReference
 
@@ -8,7 +10,7 @@ import java.lang.ref.WeakReference
  * @date 2022/4/23
  * @description MVP 中的 Presenter 基类
  */
-open class BasePresenter<out V>(view: V) {
+open class BasePresenter<out V>(view: V): DefaultLifecycleObserver {
 
     private var mViewRef: Reference<V>? = null
 
@@ -45,7 +47,8 @@ open class BasePresenter<out V>(view: V) {
     val view: V?
         get() = mViewRef?.get()
 
-    open fun onDestroy() {
+    override fun onDestroy(owner: LifecycleOwner) {
         detachView()
+        super.onDestroy(owner)
     }
 }

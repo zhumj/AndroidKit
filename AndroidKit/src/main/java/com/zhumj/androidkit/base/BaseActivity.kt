@@ -36,6 +36,9 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
     private fun init() {
         if (mPresenter == null) {
             mPresenter = obtainPresenter()
+            if (mPresenter != null) {
+                lifecycle.addObserver(mPresenter!!)
+            }
         }
         if (isRegisteredEventBus()) {
             EventBusUtil.register(this)
@@ -100,7 +103,6 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
         if (isRegisteredEventBus()) {
             EventBusUtil.unregister(this)
         }
-        mPresenter?.onDestroy()
         super.onDestroy()
     }
 

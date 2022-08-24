@@ -172,9 +172,6 @@ open fun onReceiveEvent(event: EventMessage<*>) {
 @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
 open fun onReceiveStickyEvent(event: EventMessage<*>) {
 }
-
-//销毁 Fragment 时，可能需要做些 解除广播绑定，服务之类的鬼东西
-protected abstract fun onDestroyViewAndThing()
 ```
 
 #### BasePresenter
@@ -809,3 +806,4 @@ interface OnZAlertDialogButtonClickListener {
 2. 新增 Preferences DataStore 替代 SharedPreferences，使用更简单，详情请看 PreferencesDataStoreExt
 3. 新增 GsonUtil 工具类
 4. ZAlertDialog 按钮新增简体中文适配
+5. 修改 BasePresenter：继承 DefaultLifecycleObserver，使用 Lifecycle 自动感知生命周期

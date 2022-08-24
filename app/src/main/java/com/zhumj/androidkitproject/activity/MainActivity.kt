@@ -1,7 +1,8 @@
-package com.zhumj.androidkitproject
+package com.zhumj.androidkitproject.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Address
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,7 @@ import com.zhumj.androidkit.premulticlick.OnPreMultiClickListener
 import com.zhumj.androidkit.utils.GsonUtil
 import com.zhumj.androidkit.utils.LocationUtil
 import com.zhumj.androidkit.widget.ZAlertDialog
+import com.zhumj.androidkitproject.R
 import com.zhumj.androidkitproject.databinding.ActivityMainBinding
 import com.zhumj.androidkitproject.mvp.contract.MainContract
 import com.zhumj.androidkitproject.mvp.presenter.MainPresenter
@@ -60,6 +62,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         mViewBinding.btnPDSPut.setOnClickListener(onPreMultiClickListener)
         mViewBinding.btnPDSGet.setOnClickListener(onPreMultiClickListener)
         mViewBinding.btnPDSClean.setOnClickListener(onPreMultiClickListener)
+
+        mViewBinding.tvText.setOnClickListener {
+            startActivity(Intent(this, MainActivity2::class.java))
+        }
 
         locationUtil = LocationUtil(this)
     }

@@ -33,6 +33,9 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
     private fun init() {
         if (mPresenter == null) {
             mPresenter = obtainPresenter()
+            if (mPresenter != null) {
+                lifecycle.addObserver(mPresenter!!)
+            }
         }
 
         if (isRegisteredEventBus()) {
@@ -41,11 +44,11 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = getViewBinding();
+        _binding = getViewBinding(inflater, container)
         return _binding.root
     }
 
-    protected abstract fun getViewBinding(): VB
+    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
     protected abstract fun obtainPresenter(): BP?
 
     /**
@@ -94,12 +97,7 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
         if (isRegisteredEventBus()) {
             EventBusUtil.unregister(this)
         }
-        mPresenter?.onDestroy()
-        onDestroyViewAndThing()
         super.onDestroyView()
     }
-
-    //销毁 Fragment 时，可能需要做些 解除广播绑定，服务之类的鬼东西
-    protected abstract fun onDestroyViewAndThing()
 
 }
