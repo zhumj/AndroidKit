@@ -8,54 +8,38 @@ import java.util.regex.Pattern
  * @description : 正则验证工具类
  */
 object ValidatorUtil {
-    /**
-     * 正则表达式:验证用户名(a-z,A-Z,0-9,"_",不包含中文和特殊字符，不能以“_”结尾，5-17位)
-     * 如果用户名使用手机号码或邮箱 则结合手机号验证和邮箱验证
-     */
-    private val REGEX_USERNAME: String = "^[a-zA-Z]\\w{5,17}(?<!_)$"
 
     /**
-     * 正则表达式:验证密码
-     * 至少需要一个 小写字母+大写字母+数字+特殊字符，6-20位：
-     *     ^(?![0-9a-zA-Z]+\$)(?![0-9a-z_@#$&*]+\$)(?![0-9A-Z_@#$&*]+\$)(?![a-zA-Z_@#$&*]+\$)(?![0-9_@#$&*]+\$)(?![a-z_@#$&*]+\$)(?![A-Z_@#$&*]+\$)[0-9a-zA-Z_@#$&*]{6,20}\$
-     * 至少需要 一个字母+数字+特殊字符，6-20位：
-     *     ^(?![0-9a-zA-Z]+$)(?![a-zA-Z_@#$&*]+$)[0-9a-zA-Z_@#$&*]{6,20}$
-     * 不包含特殊字符, 至少需要一个字母+数字，6-20位：
+     * 校验用户名：a-z、A-Z、0-9、"_",不包含中文和特殊字符，
+     * 必须以字母开头，不能以“_”结尾，
+     * 默认6-18位
      */
-    private val REGEX_PASSWORD: String = "^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,20}\$"
-
-    /**
-     * 正则表达式:验证手机号
-     */
-    private val REGEX_MOBILE: String = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"
-
-    /**
-     * 正则表达式:验证邮箱
-     */
-    private val REGEX_EMAIL: String = "^([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
-
-    /**
-     * 正则表达式:验证汉字
-     */
-    private val REGEX_CHINESE: String = "^[\u4e00-\u9fa5]$"
-
-
-    /**
-     * 校验用户名
-     * @param username
-     * @return 校验通过返回true，否则返回false
-     */
-    fun isUserName(username: String): Boolean {
-        return Pattern.matches(REGEX_USERNAME, username)
+    fun isUserName(username: String, min: Int = 5, max: Int = 17): Boolean {
+        return Pattern.matches("^[a-zA-Z]\\w{$min,$max}(?<!_)$", username)
     }
 
     /**
-     * 校验密码
-     * @param password
-     * @return 校验通过返回true，否则返回false
+     * 校验简单的密码：不包含特殊字符, 至少需要一个 字母+数字，
+     * 默认8-20位
      */
-    fun isPassword(password: String): Boolean {
-        return Pattern.matches(REGEX_PASSWORD, password)
+    fun isSimplePassword(password: String, min: Int = 8, max: Int = 20): Boolean {
+        return Pattern.matches("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{$min,$max}\$", password)
+    }
+
+    /**
+     * 校验普通的密码：至少需要一个 字母+数字+特殊字符，
+     * 默认8-20位
+     */
+    fun isOrdinaryPassword(password: String, min: Int = 8, max: Int = 20): Boolean {
+        return Pattern.matches("^(?![0-9a-zA-Z]+\$)(?![a-zA-Z_@#\$&*]+\$)[0-9a-zA-Z_@#\$&*]{$min,$max}\$", password)
+    }
+
+    /**
+     * 校验复杂的密码：至少需要一个 小写字母+大写字母+数字+特殊字符，
+     * 默认8-20位
+     */
+    fun isComplexPassword(password: String, min: Int = 8, max: Int = 20): Boolean {
+        return Pattern.matches("^(?![0-9a-zA-Z]+\$)(?![0-9a-z_@#\$&*]+\$)(?![0-9A-Z_@#\$&*]+\$)(?![a-zA-Z_@#\$&*]+\$)(?![0-9_@#\$&*]+\$)(?![a-z_@#\$&*]+\$)(?![A-Z_@#\$&*]+\$)[0-9a-zA-Z_@#\$&*]{$min,$max}\$", password)
     }
 
     /**
@@ -64,25 +48,42 @@ object ValidatorUtil {
      * @return 校验通过返回true，否则返回false
      */
     fun isMobile(mobile: String): Boolean {
-        return Pattern.matches(REGEX_MOBILE, mobile)
+        return Pattern.matches("^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$", mobile)
     }
 
     /**
      * 校验邮箱
-     * @param email
-     * @return 校验通过返回true，否则返回false
      */
     fun isEmail(email: String): Boolean {
-        return Pattern.matches(REGEX_EMAIL, email)
+        return Pattern.matches("^([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$", email)
     }
 
     /**
      * 校验汉字
-     * @param chinese
-     * @return 校验通过返回true，否则返回false
      */
     fun isChinese(chinese: String): Boolean {
-        return Pattern.matches(REGEX_CHINESE, chinese)
+        return Pattern.matches("^[\u4e00-\u9fa5]$", chinese)
+    }
+
+    /**
+     * 校验数字，包含正负整数、浮点数
+     */
+    fun isNumber(number: String): Boolean {
+        return Pattern.matches("^[+-]?(([0-9]([0-9]*|[.][0-9]+))|([.][0-9]+))$", number)
+    }
+
+    /**
+     * 校验数字，包含正负整数
+     */
+    fun isInt(int: String): Boolean {
+        return Pattern.matches("^[+-]?[0-9]\\d*$", int)
+    }
+
+    /**
+     * 校验数字，包含正负浮点数
+     */
+    fun isDouble(double: String): Boolean {
+        return Pattern.matches("^[+-]?[0-9]*[.][0-9]+$", double)
     }
 
 }

@@ -451,11 +451,16 @@ getAll：获取所有已保存的键值对
 正则验证工具类
 
 ```
-isUserName：校验用户名，不包含中文和特殊字符，5-17位
-isPassword：验证密码，不包含特殊字符, 至少需要一个字母+数字，6-20位
-isMobile：验证手机号
-isEmail：验证邮箱
-isChinese：验证汉字
+isUserName：校验用户名，a-z、A-Z、0-9、"_",不包含中文和特殊字符，必须以字母开头，不能以“_”结尾，默认6-18位
+isSimplePassword：校验简单的密码：不包含特殊字符, 至少需要一个 字母+数字，默认8-20位
+isOrdinaryPassword：校验普通的密码：至少需要一个 字母+数字+特殊字符，默认8-20位
+isComplexPassword：校验复杂的密码：至少需要一个 小写字母+大写字母+数字+特殊字符，默认8-20位
+isMobile：校验手机号
+isEmail：校验邮箱
+isChinese：校验汉字
+isNumber：校验数字，包含正负整数、浮点数
+isInt：校验数字，包含正负整数
+isDouble：校验数字，包含正负浮点数
 ```
 
 #### ScreenUtil
@@ -807,3 +812,7 @@ interface OnZAlertDialogButtonClickListener {
 3. 新增 GsonUtil 工具类
 4. ZAlertDialog 按钮新增简体中文适配
 5. 修改 BasePresenter：继承 DefaultLifecycleObserver，使用 Lifecycle 自动感知生命周期
+
+### v1.0.8
+
+1. 优化正则验证工具类：ValidatorUtil
