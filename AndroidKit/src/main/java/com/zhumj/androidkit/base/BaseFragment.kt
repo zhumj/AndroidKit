@@ -78,10 +78,7 @@ abstract class BaseFragment<VB : ViewBinding, BP: BasePresenter<*>?>: Fragment()
      * @param  isShowBack   是否显示返回键
      * @param  isShowTitle  是否显示标题
      */
-    protected fun initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) {
-        initToolBar(null, isShowBack, isShowTitle)
-    }
-    protected fun initToolBar(toolbar: Toolbar?, isShowBack: Boolean = false, isShowTitle: Boolean = false) {
+    protected fun initToolBar(toolbar: Toolbar? = null, isShowBack: Boolean = false, isShowTitle: Boolean = false) {
         setHasOptionsMenu(true)
 
         val mActivity: AppCompatActivity = activity as AppCompatActivity

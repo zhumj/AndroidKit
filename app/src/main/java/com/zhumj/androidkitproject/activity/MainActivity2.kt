@@ -20,7 +20,7 @@ class MainActivity2 : BaseActivity<ActivityMain2Binding, Main2Presenter>(), Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initToolBar(true, isShowTitle = true)
+        initToolBar(isShowBack = true, isShowTitle = true)
         mViewBinding.viewPager2.adapter = Main2ViewPagerAdapter(supportFragmentManager, lifecycle)
     }
 

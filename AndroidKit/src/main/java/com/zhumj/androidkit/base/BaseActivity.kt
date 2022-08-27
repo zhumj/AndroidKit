@@ -50,10 +50,7 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
      * @param  isShowBack   是否显示返回键
      * @param  isShowTitle  是否显示标题
      */
-    protected fun initToolBar(isShowBack: Boolean = false, isShowTitle: Boolean = false) {
-        initToolBar(null, isShowBack, isShowTitle)
-    }
-    protected fun initToolBar(toolbar: Toolbar?, isShowBack: Boolean = false, isShowTitle: Boolean = false) {
+    protected fun initToolBar(toolbar: Toolbar? = null, isShowBack: Boolean = false, isShowTitle: Boolean = false) {
         if (toolbar != null) {
             setSupportActionBar(toolbar)
         }
