@@ -601,6 +601,33 @@ parse：把数据转为Json字符串
 from：把Json字符串转为特定数据
 ```
 
+#### SoftKeyboardUtil
+
+击空白处自动隐藏软键盘工具类
+
+```
+/**
+ * 点击空白隐藏键盘
+ * @param context
+ * @param event 点击事件
+ * @param view 当前拥有焦点的View
+ */
+touchToHideSoft(Context context, MotionEvent ev, View currentFocusView)
+```
+
+使用：
+```
+class MainActivity: AppCompatActivity() {
+    ...
+    
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        // 点击空白隐藏键盘
+        SoftKeyboardUtil.touchToHideSoft(this, ev, currentFocus)
+        return super.dispatchTouchEvent(ev)
+    }
+}
+```
+
 ### widget
 
 #### CustomEditText
@@ -813,6 +840,7 @@ interface OnZAlertDialogButtonClickListener {
 4. ZAlertDialog 按钮新增简体中文适配
 5. 修改 BasePresenter：继承 DefaultLifecycleObserver，使用 Lifecycle 自动感知生命周期
 
-### v1.0.8
+### v1.0.8(暂未发布)
 
 1. 优化正则验证工具类：ValidatorUtil
+2. 新增 SoftKeyboardUtil 工具类，实现页面一句代码实现点击空白处隐藏软键盘
