@@ -122,6 +122,12 @@ protected abstract fun obtainPresenter(): P? //加载Presenter
 open fun isRegisteredEventBus(): Boolean = false
 
 /**
+ * 是否启用点击空白区域隐藏软键盘
+ * @return true 启用；false 不启用
+ */
+open fun enableHideSoftKeyboardByClickBlank(): Boolean = false
+
+/**
  * 接收到Eventbus分发的事件
  * @param event 事件
  */

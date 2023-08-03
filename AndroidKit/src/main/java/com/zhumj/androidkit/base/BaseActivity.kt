@@ -1,12 +1,14 @@
 package com.zhumj.androidkit.base
 
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewbinding.ViewBinding
 import com.vmadalin.easypermissions.EasyPermissions
 import com.zhumj.androidkit.eventbus.EventBusUtil
 import com.zhumj.androidkit.eventbus.EventMessage
+import com.zhumj.androidkit.utils.SoftKeyboardUtil
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -67,6 +69,11 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
      * @return true 注册；false 不注册，默认不注册
      */
     open fun isRegisteredEventBus(): Boolean = false
+    /**
+     * 是否启用点击空白区域隐藏软键盘
+     * @return true 启用；false 不启用
+     */
+    open fun enableHideSoftKeyboardByClickBlank(): Boolean = false
 
     /**
      * 接收到分发的事件
@@ -82,6 +89,14 @@ abstract class BaseActivity<VB : ViewBinding, BP: BasePresenter<*>?>: AppCompatA
      */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     open fun onReceiveStickyEvent(event: EventMessage<*>) {
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (enableHideSoftKeyboardByClickBlank()) {
+            // 点击空白隐藏键盘
+            SoftKeyboardUtil.touchToHideSoft(this, ev, currentFocus)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     /**
