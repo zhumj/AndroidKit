@@ -850,3 +850,5 @@ interface OnZAlertDialogButtonClickListener {
 
 1. 优化正则验证工具类：ValidatorUtil
 2. 新增 SoftKeyboardUtil 工具类，实现页面一句代码实现点击空白处隐藏软键盘
+3. BaseActivity 新增 点击空白区域隐藏软键盘 开关: enableHideSoftKeyboardByClickBlank
+4. 优化 DateTimeUtil
