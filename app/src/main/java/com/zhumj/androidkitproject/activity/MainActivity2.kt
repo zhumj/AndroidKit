@@ -18,6 +18,10 @@ class MainActivity2 : BaseActivity<ActivityMain2Binding, Main2Presenter>(), Main
         return Main2Presenter(this)
     }
 
+    override fun enableHideSoftKeyboardByClickBlank(): Boolean {
+        return true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initToolBar(isShowBack = true, isShowTitle = true)

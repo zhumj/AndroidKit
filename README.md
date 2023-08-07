@@ -783,15 +783,15 @@ interface OnZAlertDialogButtonClickListener {
     
 4. 微信朋友圈一样的图片查看器：[PhotoViewer:0.50](https://github.com/wanglu1209/PhotoViewer)
 
-5. 图片加载：[Coil:2.0.0-rc03](https://coil-kt.github.io/coil/)
+5. 图片加载：[Coil:2.2.2](https://coil-kt.github.io/coil/)
 
-6. google 开源手机号码相关库：[libphonenumber:8.12.53](https://github.com/google/libphonenumber)
+6. google 开源手机号码相关库：[libphonenumber:8.13.12](https://github.com/google/libphonenumber)
     
 7. 下拉刷新、上拉加载库：[SmartRefreshLayout:2.0.5](https://github.com/scwang90/SmartRefreshLayout)
 
 8. Preferences DataStore：[Preferences DataStore:1.0.0](https://developer.android.google.cn/topic/libraries/architecture/datastore#kotlin)
 
-9. Gson：[Gson:2.9.1](https://github.com/google/gson)
+9. Gson：[Gson:2.10.1](https://github.com/google/gson)
 
 ## 版本
 
@@ -852,3 +852,7 @@ interface OnZAlertDialogButtonClickListener {
 2. 新增 SoftKeyboardUtil 工具类，实现页面一句代码实现点击空白处隐藏软键盘
 3. BaseActivity 新增 点击空白区域隐藏软键盘 开关: enableHideSoftKeyboardByClickBlank
 4. 优化 DateTimeUtil
+
+### v1.0.9(未发布)
+
+1. 相关依赖库更新为最新的依赖库

@@ -53,6 +53,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainPresenter>(), MainCon
         return MainPresenter(this)
     }
 
+    override fun enableHideSoftKeyboardByClickBlank(): Boolean {
+        return true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 添加 防止短时间内多次点击 实现，默认500毫秒，onPreMultiClickListener 取1000毫秒
