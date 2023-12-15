@@ -634,6 +634,20 @@ class MainActivity: AppCompatActivity() {
 }
 ```
 
+#### FileUtil
+
+文件操作相关
+
+```
+// 删除指定文件夹或文件
+deleteFileOrDir(file: File): Boolean
+// 获取文件夹/文件大小
+getFolderSize(file: File): Float
+// 格式化大小单位
+getFormatSize(context: Context, fileSize: Long): String
+```
+
+
 ### widget
 
 #### CustomEditText
@@ -856,3 +870,4 @@ interface OnZAlertDialogButtonClickListener {
 ### v1.0.9(未发布)
 
 1. 相关依赖库更新为最新的依赖库
+2. 新增 FileUtil: 文件操作相关工具类
